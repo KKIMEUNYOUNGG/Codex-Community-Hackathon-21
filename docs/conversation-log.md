@@ -245,3 +245,14 @@ npm run dev -- --host 0.0.0.0 --port 3000
 - Supabase service role key 재발급
 - `.gitignore`에 `.env` 포함 여부 확인
 - 팀원에게는 `.env.example`만 공유
+
+## 12. 대화 로그 공유
+
+전체 작업 대화를 팀원들이 확인할 수 있도록 이 문서를 GitHub 저장소에 추가했습니다.
+
+업로드 대상:
+
+- `docs/conversation-log.md`
+- 브랜치: `feat/add-crawler`
+
+실제 인증 키 값은 공유하지 않았습니다.
