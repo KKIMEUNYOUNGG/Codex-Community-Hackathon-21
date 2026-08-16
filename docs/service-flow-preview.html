@@ -1,0 +1,292 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>리뷰 기반 상품 개선 AI 서비스 플로우</title>
+  <style>
+    :root {
+      color-scheme: light;
+      font-family: Pretendard, "Noto Sans KR", system-ui, sans-serif;
+      background: #f4f7fb;
+      color: #172033;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; }
+    header {
+      padding: 40px clamp(20px, 5vw, 72px) 24px;
+      background: linear-gradient(135deg, #14213d, #2457d6);
+      color: white;
+    }
+    header h1 { margin: 0 0 12px; font-size: clamp(26px, 4vw, 44px); }
+    header p { margin: 0; max-width: 920px; line-height: 1.7; opacity: .88; }
+    main {
+      width: min(1600px, calc(100% - 32px));
+      margin: 28px auto 64px;
+      display: grid;
+      gap: 24px;
+    }
+    section {
+      background: white;
+      border: 1px solid #dce4f0;
+      border-radius: 18px;
+      padding: 24px;
+      box-shadow: 0 12px 36px rgba(26, 46, 85, .08);
+      overflow-x: auto;
+    }
+    h2 { margin: 0 0 8px; font-size: 21px; }
+    .description { margin: 0 0 20px; color: #5d6a7e; line-height: 1.6; }
+    .mermaid { min-width: 760px; display: flex; justify-content: center; }
+    .mermaid svg { max-width: 100%; height: auto; }
+    .error {
+      padding: 14px 18px;
+      border-radius: 10px;
+      background: #fff1f1;
+      color: #9f1d1d;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>리뷰 기반 상품 개선 AI 서비스</h1>
+    <p>상품 URL → 크롤링 → Persona × Aspect 분석 → Issue/Strength → 개선 우선순위 → Seller Action → Dashboard/Chat/Word 보고서</p>
+  </header>
+
+  <main>
+    <section>
+      <h2>1. 전체 런타임 아키텍처</h2>
+      <p class="description">React, FastAPI, 비동기 Worker, PostgreSQL, Redis와 외부 시스템 사이의 핵심 입출력입니다.</p>
+      <pre class="mermaid">
+flowchart LR
+    Seller([셀러])
+    subgraph Client["Client"]
+        React["React Web App&lt;br/&gt;상품 등록 · 진행 상태 · Dashboard&lt;br/&gt;Evidence · Chat · 보고서"]
+    end
+    subgraph App["Application Boundary"]
+        API["FastAPI&lt;br/&gt;REST API · SSE 스트리밍&lt;br/&gt;입력 검증 · 응답 조합"]
+        Worker["Async Worker&lt;br/&gt;Crawler · AI 분석 · 집계&lt;br/&gt;Seller Action 생성"]
+    end
+    subgraph Data["Data Boundary"]
+        PG[("Supabase PostgreSQL&lt;br/&gt;영구 원본&lt;br/&gt;상품 · 리뷰 · 분석 · 대화")]
+        Redis[("Redis&lt;br/&gt;작업 큐 · 진행 상태 · 잠금&lt;br/&gt;TTL 캐시")]
+    end
+    subgraph External["External Systems"]
+        Musinsa["무신사 상품/리뷰 페이지"]
+        LLM["LLM API&lt;br/&gt;구조화 분석 · 답변 생성"]
+    end
+    Seller --&gt;|"상품 URL / 질문 / 필터 / 보고서 요청"| React
+    React --&gt;|"HTTPS JSON&lt;br/&gt;ProductCreateInput · ChatInput"| API
+    API --&gt;|"202 job_id · 200 DashboardOutput&lt;br/&gt;SSE ChatChunk · DOCX"| React
+    API --&gt;|"상품·대화 영구 저장 / 분석 조회"| PG
+    API --&gt;|"작업 enqueue · 상태/캐시 조회"| Redis
+    Redis --&gt;|"crawl / analyze job"| Worker
+    Worker --&gt;|"상품 URL"| Musinsa
+    Musinsa --&gt;|"ProductRaw + RawReview[]"| Worker
+    Worker --&gt;|"ReviewAnalysisInput[]"| LLM
+    LLM --&gt;|"ReviewAnalysisOutput[]"| Worker
+    Worker --&gt;|"정규화 리뷰 · 분석 · 액션 · 작업 상태"| PG
+    Worker --&gt;|"progress · cache invalidation"| Redis
+    API --&gt;|"ChatContext + 질문"| LLM
+    LLM --&gt;|"AnswerChunk + EvidenceRef[]"| API
+    PG -. "Evidence FK: analysis → raw_review" .-&gt; API
+      </pre>
+    </section>
+
+    <section>
+      <h2>2. 상품 등록부터 대시보드까지</h2>
+      <p class="description">긴 작업은 비동기로 처리하고 API는 즉시 job ID를 반환합니다.</p>
+      <pre class="mermaid">
+sequenceDiagram
+    autonumber
+    actor S as 셀러
+    participant R as React
+    participant A as FastAPI
+    participant P as PostgreSQL
+    participant Q as Redis
+    participant W as Async Worker
+    participant M as 무신사
+    participant L as LLM API
+    S-&gt;&gt;R: 무신사 상품 URL 입력
+    R-&gt;&gt;A: POST /api/v1/products {source_url}
+    A-&gt;&gt;A: URL allowlist·형식 검증
+    A-&gt;&gt;P: product + analysis_job 생성
+    A-&gt;&gt;Q: crawl_and_analyze enqueue
+    A--&gt;&gt;R: 202 {product_id, job_id, status: queued}
+    loop 완료 전 2~3초 간격
+        R-&gt;&gt;A: GET /api/v1/jobs/{job_id}
+        A-&gt;&gt;Q: 진행 상태 조회
+        alt Redis 상태 있음
+            Q--&gt;&gt;A: progress
+        else TTL 만료/재시작
+            A-&gt;&gt;P: analysis_job 최종 상태 조회
+            P--&gt;&gt;A: persisted status
+        end
+        A--&gt;&gt;R: {status, stage, progress, error?}
+    end
+    Q--&gt;&gt;W: crawl_and_analyze job
+    W-&gt;&gt;M: 상품 페이지 + 리뷰 요청
+    M--&gt;&gt;W: ProductRaw + RawReview[]
+    W-&gt;&gt;W: 옵션 정규화·중복 제거·필드 검증
+    W-&gt;&gt;P: products + raw_reviews UPSERT
+    loop 리뷰 batch
+        W-&gt;&gt;L: ReviewAnalysisInput[]
+        L--&gt;&gt;W: Persona + Aspect[] + Sentiment + Evidence
+        W-&gt;&gt;W: 스키마·Evidence 원문 검증
+        W-&gt;&gt;P: review_analyses + review_aspects 저장
+    end
+    W-&gt;&gt;W: 교차분석·우선순위·Seller Action 생성
+    W-&gt;&gt;P: product_analysis transaction 저장
+    W-&gt;&gt;Q: status=completed, cache 무효화
+    R-&gt;&gt;A: GET /products/{id}/dashboard
+    A-&gt;&gt;P: 상품 + 집계 + Evidence 조회
+    A--&gt;&gt;R: 200 DashboardOutput
+      </pre>
+    </section>
+
+    <section>
+      <h2>3. 분석 작업 상태</h2>
+      <p class="description">재시도와 재분석을 포함한 비동기 작업 생명주기입니다.</p>
+      <pre class="mermaid">
+stateDiagram-v2
+    [*] --&gt; queued: 상품 등록 성공
+    queued --&gt; crawling: worker 수신
+    crawling --&gt; analyzing_reviews: 원본 저장 완료
+    analyzing_reviews --&gt; aggregating: 리뷰별 분석 완료
+    aggregating --&gt; generating_actions: 교차분석 완료
+    generating_actions --&gt; completed: transaction commit
+    crawling --&gt; failed: 크롤링 실패
+    analyzing_reviews --&gt; failed: LLM/검증 재시도 소진
+    aggregating --&gt; failed: 집계 실패
+    generating_actions --&gt; failed: 생성 실패
+    failed --&gt; queued: 사용자가 재시도
+    completed --&gt; queued: 데이터 새로고침/재분석
+      </pre>
+    </section>
+
+    <section>
+      <h2>4. Dashboard, Evidence, Chat, Report</h2>
+      <p class="description">조회 캐시, 근거 기반 채팅, 편집 가능한 Word 보고서의 사용자 흐름입니다.</p>
+      <pre class="mermaid">
+sequenceDiagram
+    autonumber
+    actor S as 셀러
+    participant R as React
+    participant A as FastAPI
+    participant C as Redis Cache
+    participant P as PostgreSQL
+    participant L as LLM API
+    rect rgb(238, 246, 255)
+        Note over S,P: Dashboard + Evidence
+        S-&gt;&gt;R: Persona/Aspect/옵션 필터 선택
+        R-&gt;&gt;A: GET /dashboard?gender=여성&amp;size=M
+        A-&gt;&gt;C: dashboard:{product_id}:{filter_hash}
+        alt cache hit
+            C--&gt;&gt;A: DashboardOutput
+        else cache miss
+            A-&gt;&gt;P: 집계 + raw_review Evidence 조회
+            P--&gt;&gt;A: 분석 결과 + review_id + evidence_text
+            A-&gt;&gt;C: DashboardOutput 저장
+        end
+        A--&gt;&gt;R: DashboardOutput
+        R--&gt;&gt;S: 차트와 근거 리뷰 모달
+    end
+    rect rgb(246, 240, 255)
+        Note over S,L: Seller AI Chat
+        S-&gt;&gt;R: 상품 관련 질문 입력
+        R-&gt;&gt;A: POST /conversations/{id}/messages
+        A-&gt;&gt;P: user message 먼저 저장
+        A-&gt;&gt;P: 상품·분석·Evidence·최근 대화 조회
+        A-&gt;&gt;L: 제한된 ChatContext + 질문
+        L--&gt;&gt;A: AnswerChunk + EvidenceRef[]
+        A--&gt;&gt;R: SSE text/event-stream
+        A-&gt;&gt;P: assistant message + evidence_refs 저장
+        R--&gt;&gt;S: 근거 링크가 있는 답변
+    end
+    rect rgb(240, 251, 244)
+        Note over S,P: Word 보고서
+        S-&gt;&gt;R: 상품 개선 보고서 다운로드
+        R-&gt;&gt;A: GET /products/{id}/report.docx
+        A-&gt;&gt;P: 최신 분석·액션·Evidence 조회
+        A-&gt;&gt;A: 편집 가능한 DOCX 생성
+        A--&gt;&gt;R: DOCX binary
+        R--&gt;&gt;S: improvement_report.docx
+    end
+      </pre>
+    </section>
+
+    <section>
+      <h2>5. PostgreSQL 저장 모델</h2>
+      <p class="description">분석 결과와 원문 리뷰를 FK로 연결하고 대화는 PostgreSQL에 영구 저장합니다.</p>
+      <pre class="mermaid">
+erDiagram
+    PRODUCTS ||--o{ RAW_REVIEWS : has
+    PRODUCTS ||--o{ ANALYSIS_JOBS : runs
+    PRODUCTS ||--o{ PRODUCT_ANALYSES : versions
+    RAW_REVIEWS ||--o| REVIEW_ANALYSES : analyzed_as
+    REVIEW_ANALYSES ||--o{ REVIEW_ASPECTS : contains
+    PRODUCT_ANALYSES ||--o{ ISSUES : detects
+    PRODUCT_ANALYSES ||--o{ STRENGTHS : detects
+    PRODUCT_ANALYSES ||--o{ SELLER_ACTIONS : recommends
+    ISSUES ||--o{ ISSUE_EVIDENCES : has
+    RAW_REVIEWS ||--o{ ISSUE_EVIDENCES : supports
+    STRENGTHS ||--o{ STRENGTH_EVIDENCES : has
+    RAW_REVIEWS ||--o{ STRENGTH_EVIDENCES : supports
+    PRODUCTS ||--o{ CONVERSATIONS : has
+    CONVERSATIONS ||--o{ CHAT_MESSAGES : contains
+      </pre>
+    </section>
+
+    <section>
+      <h2>6. Redis와 PostgreSQL의 저장 경계</h2>
+      <p class="description">Redis가 유실되어도 PostgreSQL에서 작업과 대화를 복구할 수 있어야 합니다.</p>
+      <pre class="mermaid">
+flowchart TB
+    subgraph Redis["Redis — 유실 가능 데이터를 전제로 사용"]
+        Queue["queue:analysis&lt;br/&gt;비동기 작업"]
+        Status["job:{job_id}&lt;br/&gt;진행률 · TTL"]
+        Lock["lock:product:{id}&lt;br/&gt;중복 분석 방지"]
+        Cache["dashboard/chat-context cache&lt;br/&gt;짧은 TTL"]
+    end
+    subgraph PostgreSQL["PostgreSQL — 영구 원본"]
+        Chat["conversations + chat_messages"]
+        Analysis["raw_reviews + analyses + evidence"]
+        JobRecord["analysis_jobs 최종 상태/오류"]
+    end
+    Redis -. "재시작 후 복구 기준" .-&gt; PostgreSQL
+      </pre>
+    </section>
+  </main>
+
+  <script type="module">
+    import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs";
+
+    mermaid.initialize({
+      startOnLoad: false,
+      securityLevel: "loose",
+      theme: "base",
+      themeVariables: {
+        fontFamily: "Pretendard, Noto Sans KR, system-ui, sans-serif",
+        primaryColor: "#e8f0ff",
+        primaryTextColor: "#172033",
+        primaryBorderColor: "#4772d9",
+        lineColor: "#5c6f91",
+        secondaryColor: "#eef8f2",
+        tertiaryColor: "#fff7e8"
+      },
+      flowchart: { htmlLabels: true, curve: "basis" },
+      sequence: { useMaxWidth: true, wrap: true },
+      er: { useMaxWidth: true }
+    });
+
+    try {
+      await mermaid.run({ querySelector: ".mermaid" });
+    } catch (error) {
+      const message = document.createElement("p");
+      message.className = "error";
+      message.textContent = `Mermaid 렌더링 오류: ${error.message}`;
+      document.querySelector("main").prepend(message);
+      console.error(error);
+    }
+  </script>
+</body>
+</html>

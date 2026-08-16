@@ -27,9 +27,9 @@ from playwright.async_api import async_playwright, Page
 # ──────────────────────────────────────────────
 # 설정값
 # ──────────────────────────────────────────────
-HEADLESS = False
+HEADLESS = os.getenv("CRAWLER_HEADLESS", "0").strip().lower() in {"1", "true", "yes"}
 SLOW_MO = 150
-OUTPUT_DIR = r"C:\Users\김태희\Desktop\대학교 3-1\DE_Project1\Crawler\outputs"
+OUTPUT_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "outputs")
 DEBUG_DIR = "debug_outputs"
 
 # 평점이 다시 안 잡힐 때만 True로 켜기

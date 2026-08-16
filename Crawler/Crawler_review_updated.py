@@ -32,14 +32,13 @@ from playwright.async_api import async_playwright, Response
 # 설정값
 # ──────────────────────────────────────────────
 # 상품 URL -> 스냅,후기 탭 -> 아래 스크롤해서 N개 후기 전체 보기 클릭 -> 이 페이지의 URL을 넣어야 함!!
-HEADLESS = False
+HEADLESS = os.getenv("CRAWLER_HEADLESS", "0").strip().lower() in {"1", "true", "yes"}
 SLOW_MO = 100
 SCROLL_PAUSE = 1.2
 MAX_SCROLL_NO_CHANGE = 15
 MAX_REVIEWS = None  # None이면 전체 리뷰 수집
 
-OUTPUT_DIR = r"C:\Users\김태희\Desktop\대학교 3-1\DE_Project1\Crawler\outputs"
-
+OUTPUT_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "outputs")
 
 # ──────────────────────────────────────────────
 # 유틸리티
@@ -645,6 +644,12 @@ async def main():
                 if MAX_REVIEWS is not None and len(captured_reviews) >= MAX_REVIEWS:
                     break
                 if not isinstance(raw, dict):
+                    continue
+
+                # 리뷰 페이지는 추천 상품의 리뷰 API도 함께 호출할 수 있다.
+                # URL의 대상 상품과 다른 리뷰는 수집 단계에서 제외한다.
+                raw_product_id = parse_product_id_from_goods(raw, fallback_product_id)
+                if raw_product_id != fallback_product_id:
                     continue
 
                 key = make_dedup_key(raw)

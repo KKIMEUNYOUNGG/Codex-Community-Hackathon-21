@@ -1,0 +1,16 @@
+{
+  "products": [
+    {
+      "product_url": "https://www.musinsa.com/products/PRODUCT_ID_1",
+      "review_url": "https://www.musinsa.com/review/goods/PRODUCT_ID_1"
+    },
+    {
+      "product_url": "https://www.musinsa.com/products/PRODUCT_ID_2",
+      "review_url": "https://www.musinsa.com/review/goods/PRODUCT_ID_2"
+    },
+    {
+      "product_url": "https://www.musinsa.com/products/PRODUCT_ID_3",
+      "review_url": "https://www.musinsa.com/review/goods/PRODUCT_ID_3"
+    }
+  ]
+}
