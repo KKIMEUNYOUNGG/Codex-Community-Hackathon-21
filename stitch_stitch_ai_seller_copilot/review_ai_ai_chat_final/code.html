@@ -1,0 +1,330 @@
+<!DOCTYPE html><html lang="en" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>AI Chat Analysis Workspace</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-bright": "#f9f9f7",
+                    "text-primary": "#111111",
+                    "tertiary": "#000000",
+                    "on-error": "#ffffff",
+                    "on-secondary-container": "#007508",
+                    "on-surface": "#1a1c1b",
+                    "surface-container-lowest": "#ffffff",
+                    "text-secondary": "#6B6B6B",
+                    "on-primary-fixed": "#1c1b1b",
+                    "tertiary-container": "#410005",
+                    "on-primary": "#ffffff",
+                    "surface-dim": "#dadad8",
+                    "surface-container": "#eeeeec",
+                    "primary-fixed-dim": "#c9c6c5",
+                    "secondary-container": "#7bfe6a",
+                    "on-background": "#1a1c1b",
+                    "error-container": "#ffdad6",
+                    "tertiary-fixed": "#ffdad7",
+                    "inverse-surface": "#2f3130",
+                    "border-subtle": "#E8E8E5",
+                    "on-error-container": "#93000a",
+                    "on-tertiary": "#ffffff",
+                    "primary-fixed": "#e5e2e1",
+                    "secondary-fixed": "#7bfe6a",
+                    "on-primary-container": "#858383",
+                    "primary": "#000000",
+                    "accent-soft": "#F1FFE8",
+                    "error": "#ba1a1a",
+                    "surface-tint": "#5f5e5e",
+                    "surface-container-highest": "#e2e3e1",
+                    "on-tertiary-fixed": "#410005",
+                    "on-primary-fixed-variant": "#474646",
+                    "on-tertiary-container": "#e94c4d",
+                    "secondary-fixed-dim": "#5ee151",
+                    "negative-soft": "#FFF3F3",
+                    "on-secondary": "#ffffff",
+                    "surface-container-low": "#f4f4f2",
+                    "secondary": "#006e07",
+                    "surface-variant": "#e2e3e1",
+                    "on-surface-variant": "#444748",
+                    "surface": "#FFFFFF",
+                    "background": "#f9f9f7",
+                    "inverse-on-surface": "#f1f1ef",
+                    "on-tertiary-fixed-variant": "#920418",
+                    "on-secondary-fixed-variant": "#005304",
+                    "on-secondary-fixed": "#002201",
+                    "primary-container": "#1c1b1b",
+                    "tertiary-fixed-dim": "#ffb3af",
+                    "inverse-primary": "#c9c6c5",
+                    "surface-container-high": "#e8e8e6",
+                    "outline": "#747878",
+                    "outline-variant": "#c4c7c7",
+                    "electric-lime": "#7CFF6B"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "stack-sm": "12px",
+                    "stack-lg": "48px",
+                    "margin-mobile": "20px",
+                    "stack-md": "24px",
+                    "stack-xs": "4px",
+                    "margin-desktop": "40px",
+                    "stack-xl": "80px",
+                    "gutter": "24px"
+            },
+            "fontFamily": {
+                    "headline-lg": ["Inter"],
+                    "headline-md": ["Inter"],
+                    "label-caps": ["Inter"],
+                    "mono-data": ["Inter"],
+                    "headline-lg-mobile": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "body-sm": ["Inter"],
+                    "display-lg": ["Inter"]
+            },
+            "fontSize": {
+                    "headline-lg": ["32px", { "lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                    "headline-md": ["20px", { "lineHeight": "1.4", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                    "label-caps": ["12px", { "lineHeight": "1.2", "letterSpacing": "0.1em", "fontWeight": "700" }],
+                    "mono-data": ["14px", { "lineHeight": "1.4", "letterSpacing": "-0.01em", "fontWeight": "500" }],
+                    "headline-lg-mobile": ["24px", { "lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                    "body-lg": ["16px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                    "body-sm": ["14px", { "lineHeight": "1.5", "fontWeight": "400" }],
+                    "display-lg": ["48px", { "lineHeight": "1.1", "letterSpacing": "-0.03em", "fontWeight": "700" }]
+            }
+          }
+        }
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+          font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Inter', sans-serif; background-color: #f9f9f7; color: #111111; }
+        
+        /* Custom scrollbar for webkit */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #dadad8;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #c9c6c5;
+        }
+    </style>
+</head>
+<body class="flex h-screen overflow-hidden antialiased selection:bg-secondary-fixed selection:text-tertiary text-text-primary bg-background">
+<!-- JSON: SideNavBar -->
+<nav class="fixed left-0 top-0 h-full w-[240px] flex flex-col py-stack-md px-stack-md bg-primary z-20 hidden md:flex"><div class="mb-stack-lg"><h1 class="font-headline-md text-headline-md font-bold text-on-primary border-l-2 border-primary-fixed pl-2 tracking-tight">SELLER COPILOT</h1></div><ul class="flex flex-col gap-1 flex-grow"><li class=""><a class="flex items-center gap-3 px-3 py-2 text-on-primary/80 font-medium hover:bg-white/10 hover:text-on-primary transition-colors duration-200 rounded-lg group" href=""><span class="material-symbols-outlined text-[20px] group-hover:text-on-primary">dashboard</span><span class="font-body-sm text-body-sm">Overview</span></a></li><li class=""><a class="flex items-center gap-3 px-3 py-2 text-on-primary/80 font-medium hover:bg-white/10 hover:text-on-primary transition-colors duration-200 rounded-lg group" href=""><span class="material-symbols-outlined text-[20px] group-hover:text-on-primary">analytics</span><span class="font-body-sm text-body-sm">Customer Analysis</span></a></li><li class=""><a class="flex items-center gap-3 px-3 py-2 text-on-primary/80 font-medium hover:bg-white/10 hover:text-on-primary transition-colors duration-200 rounded-lg group" href=""><span class="material-symbols-outlined text-[20px] group-hover:text-on-primary">priority_high</span><span class="font-body-sm text-body-sm">Issues &amp; Strengths</span></a></li><li class=""><a class="flex items-center gap-3 px-3 py-2 text-on-primary/80 font-medium hover:bg-white/10 hover:text-on-primary transition-colors duration-200 rounded-lg group" href=""><span class="material-symbols-outlined text-[20px] group-hover:text-on-primary">trending_up</span><span class="font-body-sm text-body-sm">Improvement</span></a></li><li class=""><a class="flex items-center gap-3 px-3 py-2 text-on-primary/80 font-medium hover:bg-white/10 hover:text-on-primary transition-colors duration-200 rounded-lg group" href=""><span class="material-symbols-outlined text-[20px] group-hover:text-on-primary">fact_check</span><span class="font-body-sm text-body-sm">Evidence</span></a></li><li class=""><a class="flex items-center gap-3 px-3 py-2 font-bold rounded-lg transition-transform scale-95 active:scale-90 bg-surface-container-highest text-primary" href=""><span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">smart_toy</span><span class="font-body-sm text-body-sm">AI Chat</span></a></li><li class=""><a class="flex items-center gap-3 px-3 py-2 text-on-primary/80 font-medium hover:bg-white/10 hover:text-on-primary transition-colors duration-200 rounded-lg group" href=""><span class="material-symbols-outlined text-[20px] group-hover:text-on-primary">description</span><span class="font-body-sm text-body-sm">Report</span></a></li></ul><div class="mt-auto pt-stack-md border-t border-white/10 flex flex-col gap-2"><button class="w-full bg-white text-primary font-body-sm text-body-sm font-bold py-2 px-4 rounded-lg hover:bg-surface-container transition-colors mb-4 shadow-sm">Current Product Analysis</button><a class="flex items-center gap-3 px-3 py-2 text-on-primary/80 font-medium hover:bg-white/10 hover:text-on-primary transition-colors duration-200 rounded-lg" href=""><span class="material-symbols-outlined text-[20px]">settings</span><span class="font-body-sm text-body-sm">Settings</span></a><a class="flex items-center gap-3 px-3 py-2 text-on-primary/80 font-medium hover:bg-white/10 hover:text-on-primary transition-colors duration-200 rounded-lg" href=""><span class="material-symbols-outlined text-[20px]">help</span><span class="font-body-sm text-body-sm">Support</span></a></div></nav>
+<!-- Main Content Area -->
+<main class="flex-1 ml-0 md:ml-[240px] flex flex-col h-full bg-background relative">
+<!-- Layout Splitter -->
+<div class="flex flex-1 overflow-hidden flex-col lg:flex-row relative">
+<!-- Center Canvas: Chat Area (70%) -->
+<div class="flex-1 flex flex-col w-full lg:w-[70%] h-full bg-background border-r border-border-subtle overflow-hidden relative">
+<!-- Scrollable Chat History -->
+<div class="flex-1 overflow-y-auto px-margin-mobile md:px-margin-desktop py-stack-lg scroll-smooth pb-32 mt-6">
+<!-- ACTIVE CHAT EXAMPLE -->
+<div class="flex flex-col space-y-stack-xl max-w-4xl mx-auto">
+<!-- User Query -->
+<div class="flex flex-col items-end w-full">
+<div class="max-w-[80%]">
+<p class="font-label-caps text-label-caps text-text-secondary mb-2 text-right">YOU</p>
+<div class="bg-surface-container-low border border-border-subtle px-6 py-4 rounded-2xl rounded-tr-sm inline-block shadow-sm">
+<p class="font-body-lg text-body-lg text-tertiary">이 상품에서 가장 먼저 고쳐야 할 부분이 뭐야?</p>
+</div>
+</div>
+</div>
+<!-- AI Response Canvas -->
+<div class="flex flex-col w-full relative">
+<!-- AI Identifier -->
+<div class="flex items-center gap-3 mb-4 absolute -left-12 top-0 hidden md:flex">
+<div class="w-8 h-8 rounded-full bg-tertiary flex items-center justify-center">
+<span class="material-symbols-outlined text-electric-lime text-[18px]">smart_toy</span>
+</div>
+</div>
+<div class="w-full pl-0 md:pl-2">
+<p class="font-label-caps text-label-caps text-text-secondary mb-3 md:hidden">SELLER COPILOT</p>
+<!-- Main Answer Block -->
+<div class="bg-surface border border-border-subtle rounded-xl p-stack-md shadow-sm mb-stack-sm relative overflow-hidden">
+<!-- Subtle green glow top border -->
+<div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-secondary-fixed to-surface"></div>
+<div class="flex items-start gap-4 mb-6">
+<div class="mt-1">
+<span class="material-symbols-outlined text-electric-lime text-[24px]">recommend</span>
+</div>
+<div>
+<h4 class="font-headline-md text-headline-md text-tertiary mb-2">S/M 사이즈의 소매·총장 스펙 검토 권장</h4>
+<p class="font-body-lg text-body-lg text-text-primary">가장 먼저 개선해야 할 부분은 <strong>'소매 길이'</strong>와 <strong>'총기장'</strong>입니다. 특히 160-164cm 체형을 가진 고객군에서 해당 이슈가 집중적으로 발생하고 있습니다.</p>
+</div>
+</div>
+<!-- Structured Data Strip -->
+<div class="grid grid-cols-3 gap-px bg-border-subtle rounded-lg overflow-hidden border border-border-subtle">
+<div class="bg-surface p-4 flex flex-col">
+<span class="font-label-caps text-label-caps text-text-secondary mb-1">Related Reviews</span>
+<span class="font-headline-md text-headline-md text-tertiary font-mono-data">31</span>
+</div>
+<div class="bg-negative-soft p-4 flex flex-col">
+<span class="font-label-caps text-label-caps text-error mb-1">Negative Ratio</span>
+<span class="font-headline-md text-headline-md text-tertiary font-mono-data">68%</span>
+</div>
+<div class="bg-surface p-4 flex flex-col">
+<span class="font-label-caps text-label-caps text-text-secondary mb-1">Dominant Persona</span>
+<span class="font-headline-md text-headline-md text-tertiary font-mono-data">160-164cm</span>
+</div>
+</div>
+</div>
+<!-- Evidence Section -->
+<div class="mb-stack-md">
+<h5 class="font-label-caps text-label-caps text-text-secondary mb-3 pl-2 flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px]">fact_check</span> EVIDENCE
+                                    </h5>
+<div class="flex gap-3 overflow-x-auto pb-4 snap-x">
+<!-- Review Preview Card -->
+<div class="bg-surface border border-border-subtle p-4 rounded-xl min-w-[280px] max-w-[300px] shrink-0 snap-start hover:border-tertiary transition-colors cursor-pointer">
+<div class="flex items-center gap-2 mb-2">
+<span class="px-2 py-0.5 bg-surface-container-high rounded text-xs font-mono-data text-tertiary">162cm</span>
+<span class="px-2 py-0.5 bg-surface-container-high rounded text-xs font-mono-data text-tertiary">M size</span>
+</div>
+<p class="font-body-sm text-body-sm text-text-primary line-clamp-3">디자인은 너무 예쁜데, <span class="bg-negative-soft text-error border-b border-error pb-px">팔 부분이 생각보다 많이 길어요.</span> 접어 입기도 애매하고 수선해야 할 것 같습니다.</p>
+</div>
+<!-- Review Preview Card -->
+<div class="bg-surface border border-border-subtle p-4 rounded-xl min-w-[280px] max-w-[300px] shrink-0 snap-start hover:border-tertiary transition-colors cursor-pointer">
+<div class="flex items-center gap-2 mb-2">
+<span class="px-2 py-0.5 bg-surface-container-high rounded text-xs font-mono-data text-tertiary">160cm</span>
+<span class="px-2 py-0.5 bg-surface-container-high rounded text-xs font-mono-data text-tertiary">S size</span>
+</div>
+<p class="font-body-sm text-body-sm text-text-primary line-clamp-3">기장이 너무 길어서 땅에 끌릴 정도입니다. <span class="bg-negative-soft text-error border-b border-error pb-px">총기장 수정이 시급합니다.</span></p>
+</div>
+</div>
+</div>
+<!-- Seller Action Card -->
+<div class="bg-tertiary text-on-primary rounded-xl p-5 shadow-lg border border-tertiary flex items-start gap-4">
+<div class="mt-0.5">
+<span class="material-symbols-outlined text-electric-lime">action_key</span>
+</div>
+<div class="flex-1">
+<div class="flex justify-between items-center mb-2">
+<span class="font-label-caps text-label-caps text-electric-lime">ACTION TYPE: PRODUCT</span>
+<button class="text-on-primary hover:text-electric-lime transition-colors">
+<span class="material-symbols-outlined text-[18px]">bookmark_add</span>
+</button>
+</div>
+<p class="font-body-lg text-body-lg text-on-primary font-medium">다음 생산 시 S/M 사이즈의 소매 및 총장 스펙 검토를 권장합니다.</p>
+<button class="mt-4 bg-electric-lime text-primary px-4 py-2 rounded font-label-caps text-label-caps font-bold flex items-center gap-2 hover:bg-[#6be65b] transition-colors">
+View Improvement <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Input Area (Fixed Bottom) -->
+<div class="absolute bottom-0 left-0 w-full bg-background/90 backdrop-blur-md border-t border-border-subtle p-margin-mobile md:p-stack-md">
+<div class="max-w-4xl mx-auto relative">
+<div class="relative bg-surface border border-border-subtle rounded-xl focus-within:border-tertiary focus-within:ring-1 focus-within:ring-tertiary transition-all shadow-sm">
+<textarea class="w-full bg-transparent border-none py-4 pl-4 pr-16 resize-none font-body-lg text-body-lg text-tertiary placeholder:text-text-secondary focus:ring-0" placeholder="Ask a follow-up question... (e.g., '170cm 이상 고객의 반응은 어때?')" rows="2"></textarea>
+<div class="absolute right-3 bottom-3 flex items-center gap-2">
+<button class="p-2 text-text-secondary hover:text-tertiary transition-colors rounded-lg hover:bg-surface-container-high">
+<span class="material-symbols-outlined">attach_file</span>
+</button>
+<button class="bg-tertiary text-on-primary p-2 rounded-lg hover:bg-opacity-90 transition-all flex items-center justify-center group shadow-md">
+<span class="material-symbols-outlined group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform text-[20px]">arrow_upward</span>
+</button>
+</div>
+</div>
+<p class="font-label-caps text-label-caps text-text-secondary text-center mt-3 lowercase">AI can make mistakes. Verify critical business decisions.</p>
+</div>
+</div>
+</div>
+<!-- Right Panel: Context Panel (30%) -->
+<aside class="hidden lg:flex w-[30%] flex-col h-full bg-surface border-l border-border-subtle overflow-y-auto">
+<div class="p-stack-md border-b border-border-subtle sticky top-0 bg-surface/95 backdrop-blur z-10 flex justify-between items-center">
+<h3 class="font-label-caps text-label-caps text-text-secondary flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px]">info</span> PRODUCT CONTEXT
+                    </h3>
+<button class="text-text-secondary hover:text-tertiary">
+<span class="material-symbols-outlined text-[20px]">close</span>
+</button>
+</div>
+<div class="p-stack-md flex flex-col gap-stack-md">
+<!-- Product Thumbnail -->
+<div class="relative rounded-xl overflow-hidden aspect-[4/5] bg-surface-container-lowest border border-border-subtle group">
+<div class="w-full h-full bg-cover bg-center transition-transform duration-700 group-hover:scale-105" data-alt="A minimalist white women's oversized shirt with clean lines and a relaxed fit, isolated on a light background. High-quality fashion photography." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBBCDSC2AlChpjjFcKZgfJ9SqOTWWakxErVIZnnB1lpD5m46OwZ4qg69IXSF3KNdQKXr6izj-OOuQZZjNQTaUHS3Xp_uzdT7GTZYqNTty2jFsPF3L_fWCz2A75rUGR3z7OzTzY5xQLkPCIjIZQSKIv-mQDryK5UhPSEwdeTimA2d5fe7N6r1zA3259ARlg6_gFKzLC3fjTJ0j_ZtK44Sv2x0SdjyQdMh_vHaua5P3mM51L3PPajk6ZB')"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
+<div class="absolute bottom-4 left-4 right-4">
+<span class="px-2 py-1 bg-white/20 backdrop-blur text-on-primary font-label-caps text-label-caps rounded text-xs mb-2 inline-block border border-white/30">TOPS</span>
+<h4 class="font-headline-md text-headline-md text-on-primary font-medium truncate drop-shadow-md">MUSINSA STANDARD Women's Oversized Shirt</h4>
+<p class="font-mono-data text-mono-data text-on-primary/80 text-sm drop-shadow-md mt-1">SKU: MS-WS-001</p>
+</div>
+</div>
+<!-- Key Metrics -->
+<div class="grid grid-cols-2 gap-3">
+<div class="bg-surface border border-border-subtle p-4 rounded-xl flex flex-col">
+<span class="font-label-caps text-label-caps text-text-secondary mb-1">Total Reviews</span>
+<span class="font-headline-md text-headline-md text-tertiary font-mono-data">2,483</span>
+</div>
+<div class="bg-surface border border-border-subtle p-4 rounded-xl flex flex-col">
+<span class="font-label-caps text-label-caps text-text-secondary mb-1">Analyzed Reviews</span>
+<span class="font-headline-md text-headline-md text-tertiary font-mono-data">2,312</span>
+</div>
+<div class="bg-surface border border-border-subtle p-4 rounded-xl flex flex-col col-span-2">
+<span class="font-label-caps text-label-caps text-text-secondary mb-1">Avg Rating</span>
+<div class="flex items-center gap-1">
+<span class="font-headline-md text-headline-md text-tertiary font-mono-data">4.7</span>
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+</div>
+</div>
+<!-- Top Issue / Strength -->
+<div class="bg-surface border border-border-subtle rounded-xl overflow-hidden">
+<div class="p-4 border-b border-border-subtle bg-negative-soft/30">
+<span class="font-label-caps text-label-caps text-error mb-1 block">Top Issue</span>
+<div class="flex items-center justify-between">
+<span class="font-body-lg text-body-lg text-tertiary font-medium">Sleeve Length</span>
+<span class="bg-error-container text-on-error-container px-2 py-0.5 rounded font-mono-data text-xs">31 Reviews / 68% Negative</span>
+</div>
+</div>
+<div class="p-4 bg-accent-soft/30">
+<span class="font-label-caps text-label-caps text-secondary mb-1 block">Top Strength</span>
+<div class="flex items-center justify-between">
+<span class="font-body-lg text-body-lg text-tertiary font-medium">Design</span>
+<span class="bg-secondary-container text-on-secondary-container px-2 py-0.5 rounded font-mono-data text-xs">42% of positive</span>
+</div>
+</div>
+</div>
+<!-- Recent Chat Topics (History) -->
+<div>
+<h4 class="font-label-caps text-label-caps text-text-secondary mb-3 mt-4">RECENT QUERIES</h4>
+<ul class="space-y-2">
+<li class=""><a class="block p-3 rounded-lg border border-transparent hover:bg-surface hover:border-border-subtle hover:shadow-sm transition-all font-body-sm text-body-sm text-tertiary line-clamp-1" href="#">
+                                "소재 보풀에 대한 불만 비율은?"
+                            </a></li>
+<li class=""><a class="block p-3 rounded-lg border border-transparent hover:bg-surface hover:border-border-subtle hover:shadow-sm transition-all font-body-sm text-body-sm text-tertiary line-clamp-1" href="#">
+                                "가격 대비 만족도 요약해줘"
+                            </a></li>
+</ul>
+</div>
+</div>
+</aside>
+</div>
+</main>
+
+
+</body></html>

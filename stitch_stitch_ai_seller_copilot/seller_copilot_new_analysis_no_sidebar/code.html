@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SELLER COPILOT - Turn reviews into better products</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "outline-variant": "#c4c7c7",
+                        "border-subtle": "#E8E8E5",
+                        "surface-variant": "#e2e3e1",
+                        "tertiary-container": "#410005",
+                        "on-background": "#1a1c1b",
+                        "error": "#ba1a1a",
+                        "on-primary-container": "#858383",
+                        "surface-tint": "#5f5e5e",
+                        "on-primary-fixed-variant": "#474646",
+                        "surface-dim": "#dadad8",
+                        "on-tertiary-container": "#e94c4d",
+                        "on-secondary-container": "#007508",
+                        "on-tertiary": "#ffffff",
+                        "surface": "#FFFFFF",
+                        "surface-container-lowest": "#ffffff",
+                        "inverse-primary": "#c9c6c5",
+                        "on-secondary-fixed": "#002201",
+                        "surface-container": "#eeeeec",
+                        "inverse-surface": "#2f3130",
+                        "error-container": "#ffdad6",
+                        "text-primary": "#111111",
+                        "tertiary-fixed": "#ffdad7",
+                        "on-primary-fixed": "#1c1b1b",
+                        "surface-container-low": "#f4f4f2",
+                        "secondary-container": "#7bfe6a",
+                        "primary-fixed-dim": "#c9c6c5",
+                        "secondary-fixed-dim": "#5ee151",
+                        "tertiary": "#000000",
+                        "on-surface-variant": "#444748",
+                        "secondary": "#006e07",
+                        "tertiary-fixed-dim": "#ffb3af",
+                        "inverse-on-surface": "#f1f1ef",
+                        "background": "#f9f9f7",
+                        "on-surface": "#1a1c1b",
+                        "primary-fixed": "#e5e2e1",
+                        "on-secondary": "#ffffff",
+                        "on-tertiary-fixed": "#410005",
+                        "on-secondary-fixed-variant": "#005304",
+                        "on-primary": "#ffffff",
+                        "accent-soft": "#F1FFE8",
+                        "surface-bright": "#f9f9f7",
+                        "on-error-container": "#93000a",
+                        "negative-soft": "#FFF3F3",
+                        "on-error": "#ffffff",
+                        "on-tertiary-fixed-variant": "#920418",
+                        "surface-container-high": "#e8e8e6",
+                        "outline": "#747878",
+                        "secondary-fixed": "#7bfe6a",
+                        "text-secondary": "#6B6B6B",
+                        "primary": "#000000",
+                        "surface-container-highest": "#e2e3e1",
+                        "primary-container": "#1c1b1b"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "gutter": "24px",
+                        "margin-desktop": "40px",
+                        "margin-mobile": "20px",
+                        "stack-sm": "12px",
+                        "stack-xs": "4px",
+                        "stack-lg": "48px",
+                        "stack-xl": "80px",
+                        "stack-md": "24px"
+                    },
+                    "fontFamily": {
+                        "headline-lg-mobile": ["Inter"],
+                        "mono-data": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "label-caps": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "display-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-lg-mobile": ["24px", { "lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "mono-data": ["14px", { "lineHeight": "1.4", "letterSpacing": "-0.01em", "fontWeight": "500" }],
+                        "headline-md": ["20px", { "lineHeight": "1.4", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "headline-lg": ["32px", { "lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "label-caps": ["12px", { "lineHeight": "1.2", "letterSpacing": "0.1em", "fontWeight": "700" }],
+                        "body-lg": ["16px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "body-sm": ["14px", { "lineHeight": "1.5", "fontWeight": "400" }],
+                        "display-lg": ["48px", { "lineHeight": "1.1", "letterSpacing": "-0.03em", "fontWeight": "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .flow-step:hover .step-num {
+            color: #111111;
+        }
+        .flow-step:hover {
+            background-color: #ffffff;
+            border-color: #111111;
+        }
+        .step-transition {
+            transition: all 0.3s ease;
+        }
+    </style>
+</head>
+<body class="bg-background text-primary antialiased min-h-screen flex selection:bg-secondary-fixed selection:text-primary">
+<!-- Main Content Area -->
+<div class="flex-1 flex flex-col min-w-0">
+<main class="flex-grow grid grid-cols-1 lg:grid-cols-12 min-h-[100vh]">
+<!-- Content Column -->
+<div class="col-span-1 lg:col-span-7 flex flex-col justify-center px-margin-mobile md:px-margin-desktop py-stack-xl md:py-0 relative z-10">
+<div class="max-w-2xl w-full mx-auto lg:ml-auto lg:mr-0 pr-0 lg:pr-12">
+<!-- Brand Anchor -->
+<div class="mb-stack-xl flex items-center">
+<span class="font-headline-md text-headline-md font-bold tracking-widest border-l-2 border-secondary-fixed pl-2 text-primary">SELLER COPILOT</span>
+</div>
+<!-- Hero Copy -->
+<h1 class="font-display-lg text-display-lg text-text-primary mb-stack-md leading-tight">
+                    Turn reviews into<br/>better products.
+                </h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-lg mb-stack-xl">
+                    고객 리뷰에서 문제를 발견하고, 어떤 고객에게 발생하는지 분석해 실제 상품 개선 Action까지 제안합니다.
+                </p>
+<!-- URL Input Form -->
+<form class="flex flex-col sm:flex-row gap-4 mb-stack-xl" onsubmit="event.preventDefault();">
+<div class="relative flex-grow">
+<span class="material-symbols-outlined absolute left-4 top-1/2 transform -translate-y-1/2 text-outline" style="font-variation-settings: 'FILL' 0;">link</span>
+<input class="w-full h-16 pl-12 pr-4 bg-surface border border-border-subtle rounded-DEFAULT font-body-lg text-body-lg text-text-primary placeholder:text-outline focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-colors shadow-sm hover:border-outline-variant" placeholder="무신사 상품 URL을 입력하세요" required="" type="url"/>
+</div>
+<button class="h-16 px-8 bg-secondary-fixed text-primary font-headline-md text-headline-md font-bold rounded-DEFAULT flex items-center justify-center gap-2 hover:bg-[#6be45b] transition-colors shadow-sm whitespace-nowrap" type="submit">
+                        상품 분석 시작
+                        <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">arrow_forward</span>
+</button>
+</form>
+<!-- Typography Flow Diagram -->
+<div class="mt-stack-xl pt-stack-lg border-t border-border-subtle">
+<div class="flex flex-col">
+<div class="flow-step step-transition flex items-center py-4 border-b border-border-subtle cursor-default group px-2 -mx-2 rounded-lg">
+<span class="step-num step-transition font-mono-data text-mono-data text-outline w-12">01</span>
+<span class="font-headline-md text-headline-md text-text-primary group-hover:tracking-wide transition-all duration-300">REVIEW</span>
+</div>
+<div class="flow-step step-transition flex items-center py-4 border-b border-border-subtle cursor-default group px-2 -mx-2 rounded-lg">
+<span class="step-num step-transition font-mono-data text-mono-data text-outline w-12">02</span>
+<span class="font-headline-md text-headline-md text-text-primary group-hover:tracking-wide transition-all duration-300">PERSONA × ASPECT</span>
+</div>
+<div class="flow-step step-transition flex items-center py-4 border-b border-border-subtle cursor-default group px-2 -mx-2 rounded-lg">
+<span class="step-num step-transition font-mono-data text-mono-data text-outline w-12">03</span>
+<span class="font-headline-md text-headline-md text-text-primary group-hover:tracking-wide transition-all duration-300">ISSUE / STRENGTH</span>
+</div>
+<div class="flow-step step-transition flex items-center py-4 border-b border-border-subtle cursor-default group px-2 -mx-2 rounded-lg">
+<span class="step-num step-transition font-mono-data text-mono-data text-outline w-12">04</span>
+<span class="font-headline-md text-headline-md text-text-primary group-hover:tracking-wide transition-all duration-300">PRIORITY</span>
+</div>
+<div class="flow-step step-transition flex items-center py-4 border-b border-border-subtle cursor-default group px-2 -mx-2 rounded-lg">
+<span class="step-num step-transition font-mono-data text-mono-data text-outline w-12">05</span>
+<div class="flex items-center gap-2">
+<span class="font-headline-md text-headline-md text-text-primary group-hover:tracking-wide transition-all duration-300">SELLER ACTION</span>
+<span class="w-2 h-2 rounded-full bg-secondary-fixed inline-block"></span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Image Column -->
+<div class="hidden lg:block lg:col-span-5 relative bg-surface-container-high overflow-hidden border-l border-border-subtle">
+<div class="absolute inset-0 bg-primary/5 z-10 pointer-events-none mix-blend-multiply"></div>
+<img alt="Fashion MD analyzing data" class="absolute inset-0 w-full h-full object-cover object-center" data-alt="A professional fashion MD or online seller reviewing clothing samples and data." src="https://lh3.googleusercontent.com/aida/AP1WRLuZbKSR8TeTKd1MozIRXTWCetOaEmw8-uSwenqSMjuWUlqXji_mYlO61c4anNY3wlVpIko1VEVhD2rMlB8W6rVAJu1JQQiRf0_heZ9Smv_WbLVkPE4uVaowecEcItgve2G_UMyU0uRXYmKm0UgARlIjV6jsMuaEYaMLWmn4fHtk5mbx9qFFwNncrxXM-Qzu-A5yZ7lyAAfLi0qLaRctbzc8y1rRR3NHqSc6FAuvMpkMuShLTPpEPtzD6OU"/>
+</div>
+</main>
+</div>
+</body></html>

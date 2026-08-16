@@ -1,0 +1,402 @@
+<!DOCTYPE html><html class="h-full" lang="en" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Report Generation - REVIEW AI</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "outline-variant": "#c4c7c7",
+                    "border-subtle": "#E8E8E5",
+                    "surface-variant": "#e2e3e1",
+                    "tertiary-container": "#410005",
+                    "on-background": "#1a1c1b",
+                    "error": "#ba1a1a",
+                    "on-primary-container": "#858383",
+                    "surface-tint": "#5f5e5e",
+                    "on-primary-fixed-variant": "#474646",
+                    "surface-dim": "#dadad8",
+                    "on-tertiary-container": "#e94c4d",
+                    "on-secondary-container": "#007508",
+                    "on-tertiary": "#ffffff",
+                    "surface": "#FFFFFF",
+                    "surface-container-lowest": "#ffffff",
+                    "inverse-primary": "#c9c6c5",
+                    "on-secondary-fixed": "#002201",
+                    "surface-container": "#eeeeec",
+                    "inverse-surface": "#2f3130",
+                    "error-container": "#ffdad6",
+                    "text-primary": "#111111",
+                    "tertiary-fixed": "#ffdad7",
+                    "on-primary-fixed": "#1c1b1b",
+                    "surface-container-low": "#f4f4f2",
+                    "secondary-container": "#7bfe6a",
+                    "primary-fixed-dim": "#c9c6c5",
+                    "secondary-fixed-dim": "#5ee151",
+                    "tertiary": "#000000",
+                    "on-surface-variant": "#444748",
+                    "secondary": "#006e07",
+                    "tertiary-fixed-dim": "#ffb3af",
+                    "inverse-on-surface": "#f1f1ef",
+                    "background": "#f9f9f7",
+                    "on-surface": "#1a1c1b",
+                    "primary-fixed": "#e5e2e1",
+                    "on-secondary": "#ffffff",
+                    "on-tertiary-fixed": "#410005",
+                    "on-secondary-fixed-variant": "#005304",
+                    "on-primary": "#ffffff",
+                    "accent-soft": "#F1FFE8",
+                    "surface-bright": "#f9f9f7",
+                    "on-error-container": "#93000a",
+                    "negative-soft": "#FFF3F3",
+                    "on-error": "#ffffff",
+                    "on-tertiary-fixed-variant": "#920418",
+                    "surface-container-high": "#e8e8e6",
+                    "outline": "#747878",
+                    "secondary-fixed": "#7bfe6a",
+                    "text-secondary": "#6B6B6B",
+                    "primary": "#000000",
+                    "surface-container-highest": "#e2e3e1",
+                    "primary-container": "#1c1b1b"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "gutter": "24px",
+                    "margin-desktop": "40px",
+                    "margin-mobile": "20px",
+                    "stack-sm": "12px",
+                    "stack-xs": "4px",
+                    "stack-lg": "48px",
+                    "stack-xl": "80px",
+                    "stack-md": "24px"
+            },
+            "fontFamily": {
+                    "headline-lg-mobile": ["Inter"],
+                    "mono-data": ["Inter"],
+                    "headline-md": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "label-caps": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "body-sm": ["Inter"],
+                    "display-lg": ["Inter"]
+            },
+            "fontSize": {
+                    "headline-lg-mobile": ["24px", { "lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                    "mono-data": ["14px", { "lineHeight": "1.4", "letterSpacing": "-0.01em", "fontWeight": "500" }],
+                    "headline-md": ["20px", { "lineHeight": "1.4", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                    "headline-lg": ["32px", { "lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                    "label-caps": ["12px", { "lineHeight": "1.2", "letterSpacing": "0.1em", "fontWeight": "700" }],
+                    "body-lg": ["16px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                    "body-sm": ["14px", { "lineHeight": "1.5", "fontWeight": "400" }],
+                    "display-lg": ["48px", { "lineHeight": "1.1", "letterSpacing": "-0.03em", "fontWeight": "700" }]
+            }
+          }
+        }
+      }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .material-symbols-outlined.fill { font-variation-settings: 'FILL' 1; }
+        
+        /* A4 Aspect Ratio & styling for preview */
+        .a4-preview {
+            aspect-ratio: 1 / 1.414;
+            box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.08);
+        }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #e2e3e1; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #c4c7c7; }
+    </style>
+</head>
+<body class="bg-background text-text-primary h-full flex overflow-hidden">
+<!-- SideNavBar -->
+<nav class="hidden md:flex flex-col h-full py-stack-md px-stack-md fixed left-0 top-0 w-[240px] bg-primary text-on-primary z-10">
+<!-- Header -->
+<div class="mb-stack-lg flex items-center">
+<div>
+<h1 class="font-headline-md text-headline-md font-bold text-on-primary">SELLER COPILOT</h1>
+</div>
+</div>
+<!-- CTA -->
+<button class="w-full bg-surface-container-highest text-tertiary font-bold py-3 rounded-lg mb-stack-md text-sm hover:bg-surface-bright transition-colors">
+            Current Product Analysis
+        </button>
+<!-- Tabs -->
+<div class="flex-1 flex flex-col gap-2 overflow-y-auto">
+<a class="flex items-center gap-3 px-3 py-2 text-primary-fixed font-medium rounded-lg hover:bg-inverse-surface transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-caps text-label-caps">Overview</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-primary-fixed font-medium rounded-lg hover:bg-inverse-surface transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">analytics</span>
+<span class="font-label-caps text-label-caps">Customer Analysis</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-primary-fixed font-medium rounded-lg hover:bg-inverse-surface transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">priority_high</span>
+<span class="font-label-caps text-label-caps">Issues &amp; Strengths</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-primary-fixed font-medium rounded-lg hover:bg-inverse-surface transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">trending_up</span>
+<span class="font-label-caps text-label-caps">Improvement</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-primary-fixed font-medium rounded-lg hover:bg-inverse-surface transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">fact_check</span>
+<span class="font-label-caps text-label-caps">Evidence</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-primary-fixed font-medium rounded-lg hover:bg-inverse-surface transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">smart_toy</span>
+<span class="font-label-caps text-label-caps">AI Chat</span>
+</a>
+<!-- Active Tab -->
+<a class="flex items-center gap-3 px-3 py-2 font-bold rounded-lg transition-colors duration-200 bg-surface-container-highest text-tertiary" href="#">
+<span class="material-symbols-outlined fill">description</span>
+<span class="font-label-caps text-label-caps">Report</span>
+</a>
+</div>
+<!-- Footer Tabs -->
+<div class="mt-auto pt-stack-md border-t border-surface-variant flex flex-col gap-2">
+<a class="flex items-center gap-3 px-3 py-2 text-primary-fixed font-medium rounded-lg hover:bg-inverse-surface transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-label-caps text-label-caps">Settings</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-primary-fixed font-medium rounded-lg hover:bg-inverse-surface transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">help</span>
+<span class="font-label-caps text-label-caps">Support</span>
+</a>
+</div>
+</nav>
+<!-- Main Content Area -->
+<main class="flex-1 flex flex-col ml-[240px] h-full overflow-hidden">
+<!-- TopAppBar -->
+<header class="flex justify-between items-center px-margin-desktop h-16 border-b border-surface-variant bg-surface z-10 shrink-0 relative">
+<div class="flex items-center gap-4">
+<button class="flex items-center gap-2 px-4 py-2 rounded border border-border-subtle hover:border-tertiary transition-colors text-sm font-medium">
+<span class="material-symbols-outlined">download</span>
+                    Export Report
+                </button>
+<button class="flex items-center gap-2 px-4 py-2 rounded bg-secondary-container text-tertiary hover:opacity-90 transition-opacity text-sm font-medium">
+<span class="material-symbols-outlined">smart_toy</span>
+                    AI Chat
+                </button>
+<div class="w-px h-6 bg-border-subtle mx-2"></div>
+<button aria-label="refresh" class="text-text-secondary hover:text-tertiary transition-colors">
+<span class="material-symbols-outlined">refresh</span>
+</button>
+<img alt="User Workspace Profile" class="w-8 h-8 rounded-full border border-border-subtle object-cover ml-2" data-alt="A small, professional circular avatar profile picture of a fashion industry analyst in a bright, modern studio. Minimalist background, high-end editorial lighting, sharp focus." src="https://lh3.googleusercontent.com/aida-public/AB6AXuARoBBJT40c5CohBLsShQrzwjWRFETpQX8xJUNqEKt5RnjsAlS2XoxkF6USItq-ClwZqyp4bKXmj71SIJ4wd7AxNH4FTY5eQJH59nOpNqqKq8kNvfw_1Sn1v7IdLMXwWL-W7QNiBSV2KXZy8mDF2L3UCGmpf0Sx3_tp1szxf6aiVr9ViIXs6JogFkDFSJiQnRvqrW6qQoxpHI8b-jZgy8uOvMMhr1qpzkrSvTE56HfuYIRfVuqXaMUT">
+</div>
+</header>
+<!-- Page Content: 2 Column Layout -->
+<div class="flex-1 overflow-y-auto p-margin-desktop bg-surface-bright flex flex-col lg:flex-row gap-gutter">
+<!-- Left Column: Document Preview -->
+<div class="flex-1 flex flex-col max-w-[800px] mx-auto w-full">
+<div class="mb-stack-sm flex justify-between items-end">
+<div>
+<h2 class="font-headline-md text-headline-md font-semibold text-tertiary">Document Preview</h2>
+<p class="font-body-sm text-body-sm text-text-secondary mt-1">Live preview of the generated report content.</p>
+</div>
+<div class="flex gap-2">
+<button aria-label="Zoom Out" class="p-2 rounded hover:bg-surface-container transition-colors text-text-secondary">
+<span class="material-symbols-outlined">zoom_out</span>
+</button>
+<span class="px-2 py-2 font-mono-data text-mono-data text-text-secondary">100%</span>
+<button aria-label="Zoom In" class="p-2 rounded hover:bg-surface-container transition-colors text-text-secondary">
+<span class="material-symbols-outlined">zoom_in</span>
+</button>
+</div>
+</div>
+<!-- A4 Canvas -->
+<div class="bg-surface a4-preview rounded border border-border-subtle p-12 flex flex-col relative overflow-hidden group">
+<!-- decorative subtle background texture/gradient -->
+<div class="absolute inset-0 bg-gradient-to-b from-surface-container-lowest to-surface-bright opacity-50 pointer-events-none"></div>
+<!-- Report Header -->
+<div class="border-b-2 border-tertiary pb-8 mb-10 relative z-10">
+<div class="flex justify-between items-start mb-16">
+<div class="flex items-center gap-3">
+<span class="font-headline-lg text-headline-lg font-bold tracking-tight">SELLER COPILOT</span>
+</div>
+<div class="text-right">
+<span class="font-label-caps text-label-caps text-text-secondary block mb-1">DATE</span>
+<span class="font-mono-data text-mono-data">Oct 24, 2023</span>
+</div>
+</div>
+<div class="space-y-4">
+<span class="inline-block px-3 py-1 bg-secondary-container text-tertiary font-label-caps text-label-caps rounded-full">SELLER COPILOT</span>
+<h1 class="text-[42px] leading-tight font-bold tracking-tight text-tertiary">SELLER COPILOT Product Improvement Report</h1>
+</div>
+</div>
+<!-- Product Meta -->
+<div class="grid grid-cols-2 gap-8 mb-12 relative z-10">
+<div>
+<span class="font-label-caps text-label-caps text-text-secondary block mb-2">BRAND</span>
+<p class="font-headline-md text-headline-md font-semibold text-tertiary">MUSINSA STANDARD</p>
+</div>
+<div>
+<span class="font-label-caps text-label-caps text-text-secondary block mb-2">PRODUCT NAME</span>
+<p class="font-headline-md text-headline-md font-semibold text-tertiary">Women's Oversized Shirt</p>
+</div>
+</div>
+<!-- TOC -->
+<div class="flex-1 relative z-10">
+<h3 class="font-label-caps text-label-caps text-text-secondary mb-6 tracking-widest border-b border-border-subtle pb-2">TABLE OF CONTENTS</h3>
+<ul class="space-y-4 font-body-lg text-body-lg">
+<li class="flex items-baseline justify-between group/item cursor-default">
+<span class="font-medium text-tertiary group-hover/item:text-secondary transition-colors">1. Product Information</span>
+<div class="flex-1 border-b border-dashed border-border-subtle mx-4 opacity-50"></div>
+<span class="font-mono-data text-mono-data text-text-secondary">03</span>
+</li>
+<li class="flex items-baseline justify-between group/item cursor-default">
+<span class="font-medium text-tertiary group-hover/item:text-secondary transition-colors">2. AI Product Brief</span>
+<div class="flex-1 border-b border-dashed border-border-subtle mx-4 opacity-50"></div>
+<span class="font-mono-data text-mono-data text-text-secondary">04</span>
+</li>
+<li class="flex items-baseline justify-between group/item cursor-default">
+<span class="font-medium text-tertiary group-hover/item:text-secondary transition-colors">3. Aspect Analysis</span>
+<div class="flex-1 border-b border-dashed border-border-subtle mx-4 opacity-50"></div>
+<span class="font-mono-data text-mono-data text-text-secondary">05</span>
+</li>
+<li class="flex items-baseline justify-between group/item cursor-default">
+<span class="font-medium text-tertiary group-hover/item:text-secondary transition-colors">4. Major Issues</span>
+<div class="flex-1 border-b border-dashed border-border-subtle mx-4 opacity-50"></div>
+<span class="font-mono-data text-mono-data text-text-secondary">06</span>
+</li>
+<li class="flex items-baseline justify-between group/item cursor-default">
+<span class="font-medium text-tertiary group-hover/item:text-secondary transition-colors">5. Strengths</span>
+<div class="flex-1 border-b border-dashed border-border-subtle mx-4 opacity-50"></div>
+<span class="font-mono-data text-mono-data text-text-secondary">08</span>
+</li>
+<li class="flex items-baseline justify-between group/item cursor-default">
+<span class="font-medium text-tertiary group-hover/item:text-secondary transition-colors">6. Persona x Aspect</span>
+<div class="flex-1 border-b border-dashed border-border-subtle mx-4 opacity-50"></div>
+<span class="font-mono-data text-mono-data text-text-secondary">10</span>
+</li>
+<li class="flex items-baseline justify-between group/item cursor-default">
+<span class="font-medium text-tertiary group-hover/item:text-secondary transition-colors">7. Option Analysis</span>
+<div class="flex-1 border-b border-dashed border-border-subtle mx-4 opacity-50"></div>
+<span class="font-mono-data text-mono-data text-text-secondary">12</span>
+</li>
+<li class="flex items-baseline justify-between group/item cursor-default">
+<span class="font-medium text-tertiary group-hover/item:text-secondary transition-colors">8. Improvement Priority</span>
+<div class="flex-1 border-b border-dashed border-border-subtle mx-4 opacity-50"></div>
+<span class="font-mono-data text-mono-data text-text-secondary">13</span>
+</li>
+<li class="flex items-baseline justify-between group/item cursor-default">
+<span class="font-medium text-tertiary group-hover/item:text-secondary transition-colors">9. Seller Action Plan</span>
+<div class="flex-1 border-b border-dashed border-border-subtle mx-4 opacity-50"></div>
+<span class="font-mono-data text-mono-data text-text-secondary">14</span>
+</li>
+<li class="flex items-baseline justify-between group/item cursor-default">
+<span class="font-medium text-tertiary group-hover/item:text-secondary transition-colors">10. Review Evidence</span>
+<div class="flex-1 border-b border-dashed border-border-subtle mx-4 opacity-50"></div>
+<span class="font-mono-data text-mono-data text-text-secondary">16</span>
+</li>
+</ul>
+</div>
+<!-- Footer of doc -->
+<div class="mt-auto pt-8 border-t border-border-subtle flex justify-between items-center text-text-secondary font-mono-data text-mono-data relative z-10">
+<span class="">CONFIDENTIAL - INTERNAL USE ONLY</span>
+<span class="">PAGE 01</span>
+</div>
+</div>
+</div>
+<!-- Right Column: Settings Panel -->
+<div class="w-full lg:w-[400px] flex flex-col shrink-0">
+<div class="bg-surface rounded-xl border border-border-subtle p-6 flex flex-col h-full sticky top-0">
+<h2 class="font-headline-md text-headline-md font-semibold text-tertiary mb-6">Report Settings</h2>
+<!-- Configuration Form -->
+<div class="flex-1 space-y-8">
+<!-- Format Selection -->
+<div>
+<span class="font-label-caps text-label-caps text-text-secondary block mb-3">OUTPUT FORMAT</span>
+<div class="grid grid-cols-2 gap-3">
+<label class="cursor-pointer">
+<input class="peer sr-only" name="format" type="radio" value="pdf">
+<div class="border border-border-subtle bg-surface text-text-secondary px-4 py-3 rounded-lg text-center font-medium transition-all peer-checked:border-tertiary peer-checked:bg-surface-container-low peer-checked:text-tertiary flex items-center justify-center gap-2 hover:border-tertiary">
+<span class="material-symbols-outlined text-[18px]">picture_as_pdf</span>
+                                        PDF
+                                    </div>
+</label>
+<label class="cursor-pointer">
+<input checked="" class="peer sr-only" name="format" type="radio" value="docx">
+<div class="border border-tertiary bg-surface-container-low text-tertiary px-4 py-3 rounded-lg text-center font-medium transition-all peer-checked:bg-tertiary peer-checked:text-on-tertiary flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[18px]">description</span>
+                                        DOCX
+                                    </div>
+</label>
+</div>
+</div>
+<!-- Content Sections -->
+<div>
+<span class="font-label-caps text-label-caps text-text-secondary block mb-4">INCLUDED SECTIONS</span>
+<div class="space-y-3">
+<label class="flex items-start gap-3 p-3 rounded-lg border border-border-subtle hover:border-tertiary transition-colors cursor-pointer group">
+<div class="flex items-center h-6">
+<input checked="" class="w-4 h-4 text-tertiary bg-surface border-outline-variant rounded focus:ring-tertiary focus:ring-2" type="checkbox">
+</div>
+<div class="flex-1">
+<div class="font-medium text-tertiary font-body-sm">AI Product Brief</div>
+<div class="text-text-secondary font-body-sm mt-0.5">High-level summary of the product and analysis context.</div>
+</div>
+</label>
+<label class="flex items-start gap-3 p-3 rounded-lg border border-border-subtle hover:border-tertiary transition-colors cursor-pointer group bg-surface-container-low border-tertiary">
+<div class="flex items-center h-6">
+<input checked="" class="w-4 h-4 text-tertiary bg-surface border-outline-variant rounded focus:ring-tertiary focus:ring-2" type="checkbox">
+</div>
+<div class="flex-1">
+<div class="font-medium text-tertiary font-body-sm">Major Issues</div>
+<div class="text-text-secondary font-body-sm mt-0.5">Categorized negative sentiment and recurring complaints.</div>
+</div>
+</label>
+<label class="flex items-start gap-3 p-3 rounded-lg border border-border-subtle hover:border-tertiary transition-colors cursor-pointer group">
+<div class="flex items-center h-6">
+<input checked="" class="w-4 h-4 text-tertiary bg-surface border-outline-variant rounded focus:ring-tertiary focus:ring-2" type="checkbox">
+</div>
+<div class="flex-1">
+<div class="font-medium text-tertiary font-body-sm">Key Strengths</div>
+<div class="text-text-secondary font-body-sm mt-0.5">Highlighted positive features driving satisfaction.</div>
+</div>
+</label>
+<label class="flex items-start gap-3 p-3 rounded-lg border border-border-subtle hover:border-tertiary transition-colors cursor-pointer group">
+<div class="flex items-center h-6">
+<input checked="" class="w-4 h-4 text-tertiary bg-surface border-outline-variant rounded focus:ring-tertiary focus:ring-2" type="checkbox">
+</div>
+<div class="flex-1">
+<div class="font-medium text-tertiary font-body-sm">Customer Evidence</div>
+<div class="text-text-secondary font-body-sm mt-0.5">Direct quotes supporting the AI's analytical findings.</div>
+</div>
+</label>
+</div>
+</div>
+</div>
+<!-- Actions -->
+<div class="mt-8 pt-6 border-t border-border-subtle space-y-3">
+<button class="w-full bg-primary text-on-primary font-bold py-4 rounded-[10px] hover:bg-inverse-surface transition-colors flex justify-center items-center gap-2">
+<span class="material-symbols-outlined text-[20px]">description</span>
+                            Download Word (.docx)
+                        </button>
+<button class="w-full bg-transparent border border-border-subtle text-tertiary font-medium py-3 rounded-[10px] hover:border-tertiary transition-colors flex justify-center items-center gap-2 text-sm">
+<span class="material-symbols-outlined text-[18px]">picture_as_pdf</span>
+                            Export to PDF
+                        </button>
+<p class="text-center font-body-sm text-text-secondary text-xs mt-2">Word documents are fully editable after download.</p>
+</div>
+</div>
+</div>
+</div>
+</main>
+
+
+</body></html>

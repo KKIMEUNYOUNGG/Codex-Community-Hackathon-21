@@ -1,0 +1,598 @@
+<!DOCTYPE html><html class="light" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>SELLER COPILOT - Overview Dashboard</title>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<!-- Tailwind Config -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-secondary-container": "#007508",
+                        "surface-dim": "#dadad8",
+                        "negative-soft": "#FFF3F3",
+                        "surface": "#FFFFFF",
+                        "on-tertiary-container": "#e94c4d",
+                        "on-surface-variant": "#444748",
+                        "tertiary-fixed": "#ffdad7",
+                        "surface-container-low": "#f4f4f2",
+                        "on-primary": "#ffffff",
+                        "secondary-fixed": "#7bfe6a",
+                        "primary-container": "#1c1b1b",
+                        "on-secondary-fixed-variant": "#005304",
+                        "on-surface": "#1a1c1b",
+                        "accent-soft": "#F1FFE8",
+                        "primary": "#000000",
+                        "border-subtle": "#E8E8E5",
+                        "secondary-fixed-dim": "#5ee151",
+                        "text-primary": "#111111",
+                        "outline-variant": "#c4c7c7",
+                        "outline": "#747878",
+                        "secondary-container": "#7bfe6a",
+                        "surface-variant": "#e2e3e1",
+                        "on-secondary-fixed": "#002201",
+                        "inverse-on-surface": "#f1f1ef",
+                        "error": "#ba1a1a",
+                        "on-background": "#1a1c1b",
+                        "tertiary-fixed-dim": "#ffb3af",
+                        "on-tertiary": "#ffffff",
+                        "on-secondary": "#ffffff",
+                        "primary-fixed": "#e5e2e1",
+                        "surface-tint": "#5f5e5e",
+                        "surface-container-highest": "#e2e3e1",
+                        "background": "#f9f9f7",
+                        "on-primary-container": "#858383",
+                        "on-tertiary-fixed": "#410005",
+                        "inverse-primary": "#c9c6c5",
+                        "error-container": "#ffdad6",
+                        "surface-container-high": "#e8e8e6",
+                        "on-error": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "surface-container-lowest": "#ffffff",
+                        "on-primary-fixed-variant": "#474646",
+                        "surface-bright": "#f9f9f7",
+                        "text-secondary": "#6B6B6B",
+                        "tertiary": "#000000",
+                        "primary-fixed-dim": "#c9c6c5",
+                        "on-primary-fixed": "#1c1b1b",
+                        "secondary": "#006e07",
+                        "inverse-surface": "#2f3130",
+                        "tertiary-container": "#410005",
+                        "on-tertiary-fixed-variant": "#920418",
+                        "surface-container": "#eeeeec"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "gutter": "24px",
+                        "stack-lg": "48px",
+                        "margin-desktop": "40px",
+                        "stack-md": "24px",
+                        "margin-mobile": "20px",
+                        "stack-xs": "4px",
+                        "stack-sm": "12px",
+                        "stack-xl": "80px"
+                    },
+                    "fontFamily": {
+                        "mono-data": ["Inter"],
+                        "label-caps": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "headline-lg-mobile": ["Inter"]
+                    },
+                    "fontSize": {
+                        "mono-data": ["14px", { "lineHeight": "1.4", "letterSpacing": "-0.01em", "fontWeight": "500" }],
+                        "label-caps": ["12px", { "lineHeight": "1.2", "letterSpacing": "0.1em", "fontWeight": "700" }],
+                        "headline-lg": ["32px", { "lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-lg": ["16px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "display-lg": ["48px", { "lineHeight": "1.1", "letterSpacing": "-0.03em", "fontWeight": "700" }],
+                        "body-sm": ["14px", { "lineHeight": "1.5", "fontWeight": "400" }],
+                        "headline-md": ["20px", { "lineHeight": "1.4", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "headline-lg-mobile": ["24px", { "lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .fill-icon {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-background text-text-primary min-h-screen flex antialiased selection:bg-secondary-fixed selection:text-tertiary">
+<!-- SideNavBar (Shared Component JSON) -->
+<nav class="fixed left-0 top-0 h-full w-[240px] bg-[#1a1c1b] border-r border-white/10 flex flex-col py-stack-md px-stack-md z-40 hidden md:flex">
+<!-- Header -->
+<div class="flex items-center gap-2 mb-stack-lg">
+<span class="font-headline-md text-headline-md font-bold border-l-2 border-secondary-fixed pl-2 text-white">SELLER COPILOT</span>
+</div>
+<!-- Navigation Links -->
+<div class="flex flex-col gap-2 flex-grow">
+<!-- Active Tab: Overview -->
+<a class="flex items-center gap-3 px-3 py-2 font-bold bg-surface-container-highest rounded-lg transition-transform scale-95 active:scale-90 text-white" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-caps text-label-caps">Overview</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-white/70 font-medium hover:bg-white/10 hover:text-white transition-colors duration-200 rounded-lg" href="#">
+<span class="material-symbols-outlined">analytics</span>
+<span class="font-label-caps text-label-caps">Customer Analysis</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-white/70 font-medium hover:bg-white/10 hover:text-white transition-colors duration-200 rounded-lg" href="#">
+<span class="material-symbols-outlined">priority_high</span>
+<span class="font-label-caps text-label-caps">Issues &amp; Strengths</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-white/70 font-medium hover:bg-white/10 hover:text-white transition-colors duration-200 rounded-lg" href="#">
+<span class="material-symbols-outlined">trending_up</span>
+<span class="font-label-caps text-label-caps">Improvement</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-white/70 font-medium hover:bg-white/10 hover:text-white transition-colors duration-200 rounded-lg" href="#">
+<span class="material-symbols-outlined">fact_check</span>
+<span class="font-label-caps text-label-caps">Evidence</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-white/70 font-medium hover:bg-white/10 hover:text-white transition-colors duration-200 rounded-lg" href="#">
+<span class="material-symbols-outlined">smart_toy</span>
+<span class="font-label-caps text-label-caps">AI Chat</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-white/70 font-medium hover:bg-white/10 hover:text-white transition-colors duration-200 rounded-lg" href="#">
+<span class="material-symbols-outlined">description</span>
+<span class="font-label-caps text-label-caps">Report</span>
+</a>
+</div>
+<!-- CTA -->
+<div class="mt-auto mb-stack-md">
+<button class="w-full bg-secondary-fixed text-primary font-label-caps text-label-caps py-3 px-4 rounded-lg flex items-center justify-center gap-2 hover:opacity-90 transition-opacity">
+<span class="">Current Product Analysis</span>
+</button>
+</div>
+<!-- Footer Links -->
+<div class="flex flex-col gap-2 pt-4 border-t border-surface-variant/20">
+<a class="flex items-center gap-3 px-3 py-2 text-white/70 font-medium hover:bg-white/10 hover:text-white transition-colors duration-200 rounded-lg" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-label-caps text-label-caps">Settings</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-white/70 font-medium hover:bg-white/10 hover:text-white transition-colors duration-200 rounded-lg" href="#">
+<span class="material-symbols-outlined">help</span>
+<span class="font-label-caps text-label-caps">Support</span>
+</a>
+</div>
+</nav>
+<!-- Main Content Area -->
+<div class="flex-1 flex flex-col md:ml-[240px] min-w-0">
+<!-- TopAppBar (Minimal) -->
+<header class="h-16 border-b border-border-subtle bg-surface/80 backdrop-blur-md sticky top-0 z-30 flex items-center justify-end px-margin-mobile md:px-margin-desktop">
+<div class="flex items-center gap-4">
+<button class="p-2 text-text-secondary hover:text-primary transition-colors rounded-full hover:bg-surface-container-low">
+<span class="material-symbols-outlined">refresh</span>
+</button>
+<button class="p-2 text-text-secondary hover:text-primary transition-colors rounded-full hover:bg-surface-container-low">
+<span class="material-symbols-outlined">download</span>
+</button>
+<button class="px-4 py-2 bg-primary text-white font-label-caps text-label-caps rounded-lg hover:bg-primary/90 transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">smart_toy</span>
+                    AI Chat
+                </button>
+<div class="w-8 h-8 rounded-full bg-surface-container-high ml-2 border border-border-subtle flex items-center justify-center">
+<span class="material-symbols-outlined text-text-secondary text-sm">person</span>
+</div>
+</div>
+</header>
+<!-- Canvas -->
+<main class="flex-1 px-margin-mobile md:px-margin-desktop py-stack-lg max-w-[1440px] mx-auto w-full">
+<!-- Top Section: Executive Summary -->
+<section class="grid grid-cols-1 lg:grid-cols-12 gap-gutter mb-stack-xl">
+<!-- Product Card (Spans 4) -->
+<div class="lg:col-span-4 bg-surface rounded-xl border border-border-subtle overflow-hidden flex flex-col hover:border-tertiary transition-colors duration-300">
+<div class="h-64 bg-surface-container-low relative">
+<img alt="Women's Oversized Shirt" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDrnMjcgIInV1AeA9oOt5VaZ8lM9BigCGddP4AXVEc1O_qtfV0uEN_xT4f_V5b3DhjhRKA8MXEp_Ujk4dch7Fmk0WggAewF9EG1Xy8T-HBJ_MFs3FY8dh27TpTVtFResqeEf406M7JJzj7wcqLGuVOxHi3cjh7jKjy_uNqehbesrNFB4Lr-42XO7Lb3TKbnPlZV7iZ2ytdt7GqEYSmeI-lSjsK4SVmNu-8LH2PwWD_7kj0Vae_VLJIZ">
+<div class="absolute top-4 right-4 bg-surface px-3 py-1 rounded-full flex items-center gap-1 shadow-sm border border-border-subtle">
+<span class="material-symbols-outlined fill-icon text-secondary-fixed-dim text-sm">star</span>
+<span class="font-mono-data text-mono-data text-primary">4.7</span>
+</div>
+</div>
+<div class="p-6 flex flex-col justify-between flex-grow">
+<div>
+<p class="font-label-caps text-label-caps text-text-secondary mb-2">MUSINSA STANDARD</p>
+<h2 class="font-headline-md text-headline-md text-primary mb-2">Women's Oversized Shirt</h2>
+<p class="font-body-sm text-body-sm text-text-secondary line-clamp-2">Classic relaxed fit button-down in organic cotton poplin. Features dropped shoulders and a curved hem.</p>
+</div>
+<div class="mt-4 pt-4 border-t border-border-subtle flex justify-between items-end">
+<span class="font-headline-md text-headline-md text-primary">₩39,900</span>
+<span class="font-label-caps text-label-caps text-text-secondary">SKU: MS-WS-001</span>
+</div>
+</div>
+</div>
+<!-- AI Brief & Priorities (Spans 8) -->
+<div class="lg:col-span-8 flex flex-col gap-gutter">
+<!-- AI Product Brief -->
+<div class="bg-surface rounded-xl border-l-4 border-l-secondary-fixed border-y border-r border-border-subtle p-6 relative overflow-hidden group">
+<div class="absolute top-0 right-0 w-32 h-32 bg-secondary-fixed/5 rounded-bl-full -z-0"></div>
+<div class="flex items-center gap-2 mb-4 z-10 relative">
+<span class="material-symbols-outlined text-secondary">auto_awesome</span>
+<h3 class="font-label-caps text-label-caps text-primary">AI Product Brief</h3>
+</div>
+<p class="font-body-lg text-body-lg text-primary z-10 relative leading-relaxed max-w-3xl">
+                            해당 제품은 <strong class="font-semibold">디자인 및 스타일링</strong> 면에서 긍정적인 평가를 받고 있으나, <strong class="font-semibold">소매 기장과 사이즈 일관성</strong>에 대한 불만이 확인됩니다. 160-164cm 체형 타겟의 사이즈 재검토와 명확한 사이즈 가이드 제공을 통해 전반적인 만족도와 평점을 4.8 이상으로 개선할 수 있습니다.
+                        </p>
+</div>
+<!-- Improvement Priorities Top 3 -->
+<div class="bg-surface rounded-xl border border-border-subtle p-6 flex-grow">
+<h3 class="font-label-caps text-label-caps text-primary mb-6">Improvement Priority Top 3</h3>
+<div class="flex flex-col gap-4">
+<!-- Priority 1 -->
+<div class="flex items-center gap-4 group">
+<div class="w-8 h-8 rounded-full bg-error-container text-on-error-container flex items-center justify-center font-mono-data text-mono-data font-bold shrink-0">1</div>
+<div class="flex-grow pb-4 border-b border-border-subtle group-last:border-0 group-last:pb-0 flex justify-between items-center">
+<div>
+<p class="font-body-sm text-body-sm font-semibold text-primary">소매 기장 스펙 (Sleeve Length)</p>
+<p class="font-body-sm text-body-sm text-text-secondary">160-164cm / M 사이즈 구매자 불만 집중 (부정 비율 68%)</p>
+</div>
+<span class="bg-negative-soft text-on-tertiary-container px-3 py-1 rounded-full font-label-caps text-label-caps text-[10px]">High Impact</span>
+</div>
+</div>
+<!-- Priority 2 -->
+<div class="flex items-center gap-4 group">
+<div class="w-8 h-8 rounded-full bg-surface-container-high text-on-surface-variant flex items-center justify-center font-mono-data text-mono-data font-bold shrink-0">2</div>
+<div class="flex-grow pb-4 border-b border-border-subtle group-last:border-0 group-last:pb-0 flex justify-between items-center">
+<div>
+<p class="font-body-sm text-body-sm font-semibold text-primary">사이즈 혼선 (Sizing Confusion)</p>
+<p class="font-body-sm text-body-sm text-text-secondary">오버사이즈 핏에 대한 실측 사이즈 안내 부족</p>
+</div>
+<span class="bg-surface-container text-text-secondary px-3 py-1 rounded-full font-label-caps text-label-caps text-[10px]">Med Impact</span>
+</div>
+</div>
+<!-- Priority 3 -->
+<div class="flex items-center gap-4 group">
+<div class="w-8 h-8 rounded-full bg-surface-container-high text-on-surface-variant flex items-center justify-center font-mono-data text-mono-data font-bold shrink-0">3</div>
+<div class="flex-grow pb-4 border-b border-border-subtle group-last:border-0 group-last:pb-0 flex justify-between items-center">
+<div>
+<p class="font-body-sm text-body-sm font-semibold text-primary">소재 구김 (Material Wrinkles)</p>
+<p class="font-body-sm text-body-sm text-text-secondary">세탁 후 원단 구김에 대한 개선 요청</p>
+</div>
+<span class="bg-surface-container text-text-secondary px-3 py-1 rounded-full font-label-caps text-label-caps text-[10px]">Low Impact</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- KPI Row -->
+<section class="grid grid-cols-2 md:grid-cols-4 gap-px bg-border-subtle border border-border-subtle rounded-xl overflow-hidden mb-stack-xl">
+<div class="bg-surface p-6 flex flex-col justify-center">
+<p class="font-label-caps text-label-caps text-text-secondary mb-2">Reviews Analyzed (Total: 2,483)</p>
+<p class="font-display-lg text-display-lg text-primary">2,312</p>
+</div>
+<div class="bg-surface p-6 flex flex-col justify-center">
+<p class="font-label-caps text-label-caps text-text-secondary mb-2">Aspects Identified</p>
+<p class="font-display-lg text-display-lg text-primary">8</p>
+</div>
+<div class="bg-surface p-6 flex flex-col justify-center">
+<p class="font-label-caps text-label-caps text-text-secondary mb-2">Major Issues</p>
+<p class="font-display-lg text-display-lg text-error">3</p>
+</div>
+<div class="bg-surface p-6 flex flex-col justify-center">
+<p class="font-label-caps text-label-caps text-text-secondary mb-2">Major Strengths</p>
+<p class="font-display-lg text-display-lg text-secondary">3</p>
+</div>
+</section>
+<!-- Top Issues vs Strengths -->
+<section class="grid grid-cols-1 md:grid-cols-2 gap-gutter mb-stack-xl">
+<!-- Issues -->
+<div class="bg-surface rounded-xl border border-border-subtle p-6">
+<div class="flex items-center gap-2 mb-6">
+<span class="material-symbols-outlined text-error">warning</span>
+<h3 class="font-label-caps text-label-caps text-primary">Top Issues</h3>
+</div>
+<div class="space-y-4">
+<div class="flex items-center justify-between">
+<span class="font-body-sm text-body-sm text-primary">Sleeve Length (소매 기장)</span>
+<div class="flex items-center gap-3">
+<div class="w-32 h-2 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-error w-[68%]"></div>
+</div>
+<span class="font-mono-data text-mono-data text-text-secondary w-8 text-right">68%</span>
+</div>
+</div>
+<div class="flex items-center justify-between">
+<span class="font-body-sm text-body-sm text-primary">Sizing Confusion (사이즈 혼선)</span>
+<div class="flex items-center gap-3">
+<div class="w-32 h-2 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-error w-[42%]"></div>
+</div>
+<span class="font-mono-data text-mono-data text-text-secondary w-8 text-right">42%</span>
+</div>
+</div>
+<div class="flex items-center justify-between">
+<span class="font-body-sm text-body-sm text-primary">Wrinkles Easily (소재 구김)</span>
+<div class="flex items-center gap-3">
+<div class="w-32 h-2 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-error w-[15%]"></div>
+</div>
+<span class="font-mono-data text-mono-data text-text-secondary w-8 text-right">15%</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Strengths -->
+<div class="bg-surface rounded-xl border border-border-subtle p-6">
+<div class="flex items-center gap-2 mb-6">
+<span class="material-symbols-outlined text-secondary">check_circle</span>
+<h3 class="font-label-caps text-label-caps text-primary">Top Strengths</h3>
+</div>
+<div class="space-y-4">
+<div class="flex items-center justify-between">
+<span class="font-body-sm text-body-sm text-primary">Design (디자인)</span>
+<div class="flex items-center gap-3">
+<div class="w-32 h-2 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-secondary-fixed w-[88%]"></div>
+</div>
+<span class="font-mono-data text-mono-data text-text-secondary w-8 text-right">88%</span>
+</div>
+</div>
+<div class="flex items-center justify-between">
+<span class="font-body-sm text-body-sm text-primary">Versatile Styling (활용도)</span>
+<div class="flex items-center gap-3">
+<div class="w-32 h-2 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-secondary-fixed w-[76%]"></div>
+</div>
+<span class="font-mono-data text-mono-data text-text-secondary w-8 text-right">76%</span>
+</div>
+</div>
+<div class="flex items-center justify-between">
+<span class="font-body-sm text-body-sm text-primary">Fabric Feel (소재감)</span>
+<div class="flex items-center gap-3">
+<div class="w-32 h-2 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-secondary-fixed w-[70%]"></div>
+</div>
+<span class="font-mono-data text-mono-data text-text-secondary w-8 text-right">70%</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Insights Row -->
+<section class="grid grid-cols-1 lg:grid-cols-12 gap-gutter mb-stack-xl">
+<!-- Customer Persona Segments (Spans 7) -->
+<div class="lg:col-span-7 bg-surface rounded-xl border border-border-subtle p-6 flex flex-col">
+<h3 class="font-label-caps text-label-caps text-primary mb-6">Customer Insights: Persona Segments</h3>
+<div class="flex-grow flex items-center justify-center gap-8">
+<!-- Chart Area Placeholder -->
+<div class="relative w-48 h-48 rounded-full border-[16px] border-surface-container flex items-center justify-center">
+<!-- CSS pure visual representation of a donut chart -->
+<div class="absolute inset-[-16px] rounded-full border-[16px] border-primary" style="clip-path: polygon(50% 50%, 100% 0, 100% 100%, 0 100%, 0 50%); transform: rotate(45deg);"></div>
+<div class="absolute inset-[-16px] rounded-full border-[16px] border-secondary-fixed" style="clip-path: polygon(50% 50%, 0 50%, 0 0, 50% 0); transform: rotate(45deg);"></div>
+<div class="absolute inset-[-16px] rounded-full border-[16px] border-surface-tint" style="clip-path: polygon(50% 50%, 50% 0, 100% 0); transform: rotate(45deg);"></div>
+<div class="text-center z-10 bg-surface rounded-full w-32 h-32 flex flex-col items-center justify-center">
+<span class="font-mono-data text-mono-data text-text-secondary">Dominant</span>
+<span class="font-headline-md text-headline-md text-primary">55%</span>
+</div>
+</div>
+<div class="space-y-4">
+<div class="flex items-center gap-3">
+<div class="w-3 h-3 rounded-full bg-primary"></div>
+<div>
+<p class="font-body-sm text-body-sm font-semibold text-primary">Minimalist Professional</p>
+<p class="font-label-caps text-label-caps text-text-secondary text-[10px]">55% of buyers</p>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<div class="w-3 h-3 rounded-full bg-secondary-fixed"></div>
+<div>
+<p class="font-body-sm text-body-sm font-semibold text-primary">Weekend Casual</p>
+<p class="font-label-caps text-label-caps text-text-secondary text-[10px]">30% of buyers</p>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<div class="w-3 h-3 rounded-full bg-surface-tint"></div>
+<div>
+<p class="font-body-sm text-body-sm font-semibold text-primary">Trend Seeker</p>
+<p class="font-label-caps text-label-caps text-text-secondary text-[10px]">15% of buyers</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Option Insight (Spans 5) -->
+<div class="lg:col-span-5 bg-surface rounded-xl border border-border-subtle p-6">
+<h3 class="font-label-caps text-label-caps text-primary mb-6">Option Insight: Color Performance</h3>
+<div class="space-y-6">
+<!-- Color 1 -->
+<div>
+<div class="flex justify-between items-center mb-2">
+<div class="flex items-center gap-2">
+<div class="w-4 h-4 rounded-full border border-border-subtle bg-white"></div>
+<span class="font-body-sm text-body-sm text-primary">Optic White</span>
+</div>
+<div class="flex gap-1">
+<span class="bg-accent-soft text-on-secondary-container px-2 py-0.5 rounded text-[10px] font-bold">4.8 ★</span>
+</div>
+</div>
+<p class="font-body-sm text-body-sm text-text-secondary text-xs">Highest volume. Prone to sheer complaints.</p>
+</div>
+<!-- Color 2 -->
+<div>
+<div class="flex justify-between items-center mb-2">
+<div class="flex items-center gap-2">
+<div class="w-4 h-4 rounded-full border border-border-subtle bg-[#89CFF0]"></div>
+<span class="font-body-sm text-body-sm text-primary">Oxford Blue</span>
+</div>
+<div class="flex gap-1">
+<span class="bg-accent-soft text-on-secondary-container px-2 py-0.5 rounded text-[10px] font-bold">4.6 ★</span>
+</div>
+</div>
+<p class="font-body-sm text-body-sm text-text-secondary text-xs">Strong positive sentiment on color fastness.</p>
+</div>
+<!-- Color 3 -->
+<div>
+<div class="flex justify-between items-center mb-2">
+<div class="flex items-center gap-2">
+<div class="w-4 h-4 rounded-full border border-border-subtle bg-[#1a1c1b]"></div>
+<span class="font-body-sm text-body-sm text-primary">True Black</span>
+</div>
+<div class="flex gap-1">
+<span class="bg-surface-container text-on-surface-variant px-2 py-0.5 rounded text-[10px] font-bold">4.4 ★</span>
+</div>
+</div>
+<p class="font-body-sm text-body-sm text-text-secondary text-xs">Lint attraction issues noted in 12% of reviews.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Aspect Overview (Diverging Bar Chart) -->
+<section class="bg-surface rounded-xl border border-border-subtle p-6 mb-stack-xl overflow-x-auto">
+<div class="flex justify-between items-center mb-8 min-w-[600px]">
+<h3 class="font-label-caps text-label-caps text-primary">Aspect Overview</h3>
+<div class="flex gap-4 font-label-caps text-label-caps text-[10px] text-text-secondary">
+<span class="flex items-center gap-1"><div class="w-2 h-2 bg-error rounded-sm"></div> Negative</span>
+<span class="flex items-center gap-1"><div class="w-2 h-2 bg-surface-container-high rounded-sm"></div> Neutral</span>
+<span class="flex items-center gap-1"><div class="w-2 h-2 bg-secondary-fixed rounded-sm"></div> Positive</span>
+</div>
+</div>
+<div class="space-y-4 min-w-[600px]">
+<!-- Center Line Reference -->
+<div class="relative pt-2">
+<div class="absolute left-1/4 w-px h-full bg-border-subtle -z-10"></div>
+<div class="absolute left-1/2 w-px h-full bg-border-subtle border-dashed border-l -z-10"></div>
+<div class="absolute left-3/4 w-px h-full bg-border-subtle -z-10"></div>
+<!-- Row 1 -->
+<div class="flex items-center h-8 group hover:bg-surface-bright transition-colors rounded">
+<div class="w-32 pr-4 text-right font-body-sm text-body-sm text-primary shrink-0 truncate">Fit &amp; Size</div>
+<div class="flex-grow flex items-center h-full">
+<div class="w-1/2 flex justify-end h-3">
+<div class="bg-error w-[42%] rounded-l-sm" title="42% Negative"></div>
+</div>
+<div class="w-1/2 flex justify-start h-3 gap-0.5">
+<div class="bg-surface-container-high w-[10%]" title="10% Neutral"></div>
+<div class="bg-secondary-fixed w-[48%] rounded-r-sm" title="48% Positive"></div>
+</div>
+</div>
+</div>
+<!-- Row 2 -->
+<div class="flex items-center h-8 group hover:bg-surface-bright transition-colors rounded">
+<div class="w-32 pr-4 text-right font-body-sm text-body-sm text-primary shrink-0 truncate">Material</div>
+<div class="flex-grow flex items-center h-full">
+<div class="w-1/2 flex justify-end h-3">
+<div class="bg-error w-[30%] rounded-l-sm" title="30% Negative"></div>
+</div>
+<div class="w-1/2 flex justify-start h-3 gap-0.5">
+<div class="bg-surface-container-high w-[5%]" title="5% Neutral"></div>
+<div class="bg-secondary-fixed w-[65%] rounded-r-sm" title="65% Positive"></div>
+</div>
+</div>
+</div>
+<!-- Row 3 -->
+<div class="flex items-center h-8 group hover:bg-surface-bright transition-colors rounded">
+<div class="w-32 pr-4 text-right font-body-sm text-body-sm text-primary shrink-0 truncate">Design</div>
+<div class="flex-grow flex items-center h-full">
+<div class="w-1/2 flex justify-end h-3">
+<div class="bg-error w-[5%] rounded-l-sm" title="5% Negative"></div>
+</div>
+<div class="w-1/2 flex justify-start h-3 gap-0.5">
+<div class="bg-surface-container-high w-[7%]" title="7% Neutral"></div>
+<div class="bg-secondary-fixed w-[88%] rounded-r-sm" title="88% Positive"></div>
+</div>
+</div>
+</div>
+<!-- Row 4 -->
+<div class="flex items-center h-8 group hover:bg-surface-bright transition-colors rounded">
+<div class="w-32 pr-4 text-right font-body-sm text-body-sm text-primary shrink-0 truncate">Value</div>
+<div class="flex-grow flex items-center h-full">
+<div class="w-1/2 flex justify-end h-3">
+<div class="bg-error w-[15%] rounded-l-sm" title="15% Negative"></div>
+</div>
+<div class="w-1/2 flex justify-start h-3 gap-0.5">
+<div class="bg-surface-container-high w-[25%]" title="25% Neutral"></div>
+<div class="bg-secondary-fixed w-[60%] rounded-r-sm" title="60% Positive"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Axis Labels -->
+<div class="flex items-center text-[10px] text-text-secondary mt-2">
+<div class="w-32 pr-4 shrink-0"></div>
+<div class="flex-grow flex relative">
+<span class="absolute left-0 -ml-2">100%</span>
+<span class="absolute left-1/4 -ml-2">50%</span>
+<span class="absolute left-1/2 -ml-1 text-primary">0</span>
+<span class="absolute left-3/4 -ml-2">50%</span>
+<span class="absolute right-0 -mr-2">100%</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Seller Action Preview -->
+<section class="border-t border-border-subtle pt-stack-lg">
+<div class="flex justify-between items-center mb-6">
+<h3 class="font-headline-md text-headline-md text-primary">Recommended Actions</h3>
+<button class="font-label-caps text-label-caps text-primary border-b border-primary hover:text-text-secondary hover:border-text-secondary transition-colors pb-0.5">View Full Plan</button>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-5 gap-gutter">
+<!-- Action Card 1 -->
+<div class="bg-surface border border-border-subtle rounded-xl p-6 hover:border-primary transition-colors cursor-pointer group">
+<div class="w-10 h-10 bg-surface-container rounded-lg flex items-center justify-center mb-4 text-primary group-hover:bg-secondary-fixed group-hover:text-primary transition-colors">
+<span class="material-symbols-outlined">edit_note</span>
+</div>
+<h4 class="font-label-caps text-label-caps text-text-secondary mb-1">PRODUCT</h4>
+<h4 class="font-body-lg text-body-lg font-semibold text-primary mb-2">제품 스펙 개선</h4>
+<p class="font-body-sm text-body-sm text-text-secondary line-clamp-2">다음 생산 시 S/M 사이즈의 소매 및 총장 스펙 검토를 권장합니다.</p>
+</div>
+<!-- Action Card 2 -->
+<div class="bg-surface border border-border-subtle rounded-xl p-6 hover:border-primary transition-colors cursor-pointer group">
+<div class="w-10 h-10 bg-surface-container rounded-lg flex items-center justify-center mb-4 text-primary group-hover:bg-secondary-fixed group-hover:text-primary transition-colors">
+<span class="material-symbols-outlined">straighten</span>
+</div>
+<h4 class="font-label-caps text-label-caps text-text-secondary mb-1">SIZE GUIDE</h4>
+<h4 class="font-body-lg text-body-lg font-semibold text-primary mb-2">사이즈 가이드 업데이트</h4>
+<p class="font-body-sm text-body-sm text-text-secondary line-clamp-2">오버사이즈 핏에 대한 실측 사이즈 안내를 명확히 추가하세요.</p>
+</div>
+<!-- Action Card 3 -->
+<div class="bg-surface border border-border-subtle rounded-xl p-6 hover:border-primary transition-colors cursor-pointer group">
+<div class="w-10 h-10 bg-surface-container rounded-lg flex items-center justify-center mb-4 text-primary group-hover:bg-secondary-fixed group-hover:text-primary transition-colors">
+<span class="material-symbols-outlined">web</span>
+</div>
+<h4 class="font-label-caps text-label-caps text-text-secondary mb-1">PRODUCT PAGE</h4>
+<h4 class="font-body-lg text-body-lg font-semibold text-primary mb-2">상세 페이지 개선</h4>
+<p class="font-body-sm text-body-sm text-text-secondary line-clamp-2">비침 정도에 대한 안내를 상세 페이지 상단에 추가하세요.</p>
+</div>
+<!-- Action Card 4 -->
+<div class="bg-surface border border-border-subtle rounded-xl p-6 hover:border-primary transition-colors cursor-pointer group">
+<div class="w-10 h-10 bg-surface-container rounded-lg flex items-center justify-center mb-4 text-primary group-hover:bg-secondary-fixed group-hover:text-primary transition-colors">
+<span class="material-symbols-outlined">manufacturing</span>
+</div>
+<h4 class="font-label-caps text-label-caps text-text-secondary mb-1">QC</h4>
+<h4 class="font-body-lg text-body-lg font-semibold text-primary mb-2">품질 관리 강화</h4>
+<p class="font-body-sm text-body-sm text-text-secondary line-clamp-2">생산 공정에서 원단 구김 방지 가공 상태를 점검하세요.</p>
+</div>
+<!-- Action Card 5 -->
+<div class="bg-surface border border-border-subtle rounded-xl p-6 hover:border-primary transition-colors cursor-pointer group">
+<div class="w-10 h-10 bg-surface-container rounded-lg flex items-center justify-center mb-4 text-primary group-hover:bg-secondary-fixed group-hover:text-primary transition-colors">
+<span class="material-symbols-outlined">campaign</span>
+</div>
+<h4 class="font-label-caps text-label-caps text-text-secondary mb-1">MARKETING</h4>
+<h4 class="font-body-lg text-body-lg font-semibold text-primary mb-2">마케팅 포인트 도출</h4>
+<p class="font-body-sm text-body-sm text-text-secondary line-clamp-2">'활용도 높은 기본템' 포지셔닝을 강화한 콘텐츠를 기획하세요.</p>
+</div>
+</div>
+</section>
+</main>
+</div>
+
+
+</body></html>
