@@ -1,0 +1,392 @@
+<!DOCTYPE html><html class="light" lang="ko" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>SELLER COPILOT - Issues &amp; Strengths</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "outline-variant": "#c4c7c7",
+                      "border-subtle": "#E8E8E5",
+                      "surface-variant": "#e2e3e1",
+                      "tertiary-container": "#410005",
+                      "on-background": "#1a1c1b",
+                      "error": "#ba1a1a",
+                      "on-primary-container": "#858383",
+                      "surface-tint": "#5f5e5e",
+                      "on-primary-fixed-variant": "#474646",
+                      "surface-dim": "#dadad8",
+                      "on-tertiary-container": "#e94c4d",
+                      "on-secondary-container": "#007508",
+                      "on-tertiary": "#ffffff",
+                      "surface": "#FFFFFF",
+                      "surface-container-lowest": "#ffffff",
+                      "inverse-primary": "#c9c6c5",
+                      "on-secondary-fixed": "#002201",
+                      "surface-container": "#eeeeec",
+                      "inverse-surface": "#2f3130",
+                      "error-container": "#ffdad6",
+                      "text-primary": "#111111",
+                      "tertiary-fixed": "#ffdad7",
+                      "on-primary-fixed": "#1c1b1b",
+                      "surface-container-low": "#f4f4f2",
+                      "secondary-container": "#7bfe6a",
+                      "primary-fixed-dim": "#c9c6c5",
+                      "secondary-fixed-dim": "#5ee151",
+                      "tertiary": "#000000",
+                      "on-surface-variant": "#444748",
+                      "secondary": "#006e07",
+                      "tertiary-fixed-dim": "#ffb3af",
+                      "inverse-on-surface": "#f1f1ef",
+                      "background": "#f9f9f7",
+                      "on-surface": "#1a1c1b",
+                      "primary-fixed": "#e5e2e1",
+                      "on-secondary": "#ffffff",
+                      "on-tertiary-fixed": "#410005",
+                      "on-secondary-fixed-variant": "#005304",
+                      "on-primary": "#ffffff",
+                      "accent-soft": "#F1FFE8",
+                      "surface-bright": "#f9f9f7",
+                      "on-error-container": "#93000a",
+                      "negative-soft": "#FFF3F3",
+                      "on-error": "#ffffff",
+                      "on-tertiary-fixed-variant": "#920418",
+                      "surface-container-high": "#e8e8e6",
+                      "outline": "#747878",
+                      "secondary-fixed": "#7bfe6a",
+                      "text-secondary": "#6B6B6B",
+                      "primary": "#000000",
+                      "surface-container-highest": "#e2e3e1",
+                      "primary-container": "#1c1b1b"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "gutter": "24px",
+                      "margin-desktop": "40px",
+                      "margin-mobile": "20px",
+                      "stack-sm": "12px",
+                      "stack-xs": "4px",
+                      "stack-lg": "48px",
+                      "stack-xl": "80px",
+                      "stack-md": "24px"
+              },
+              "fontFamily": {
+                      "headline-lg-mobile": ["Inter", "sans-serif"],
+                      "mono-data": ["Inter", "monospace"],
+                      "headline-md": ["Inter", "sans-serif"],
+                      "headline-lg": ["Inter", "sans-serif"],
+                      "label-caps": ["Inter", "sans-serif"],
+                      "body-lg": ["Inter", "sans-serif"],
+                      "body-sm": ["Inter", "sans-serif"],
+                      "display-lg": ["Inter", "sans-serif"]
+              },
+              "fontSize": {
+                      "headline-lg-mobile": ["24px", { "lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                      "mono-data": ["14px", { "lineHeight": "1.4", "letterSpacing": "-0.01em", "fontWeight": "500" }],
+                      "headline-md": ["20px", { "lineHeight": "1.4", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                      "headline-lg": ["32px", { "lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                      "label-caps": ["12px", { "lineHeight": "1.2", "letterSpacing": "0.1em", "fontWeight": "700" }],
+                      "body-lg": ["16px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                      "body-sm": ["14px", { "lineHeight": "1.5", "fontWeight": "400" }],
+                      "display-lg": ["48px", { "lineHeight": "1.1", "letterSpacing": "-0.03em", "fontWeight": "700" }]
+              }
+            }
+          }
+        }
+    </script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script>
+    function switchTab(tabId) {
+        const issuesBtn = document.getElementById('btn-issues');
+        const strengthsBtn = document.getElementById('btn-strengths');
+        const issuesContent = document.getElementById('content-issues');
+        const strengthsContent = document.getElementById('content-strengths');
+
+        if (tabId === 'issues') {
+            issuesBtn.classList.add('border-primary-fixed', 'text-primary');
+            issuesBtn.classList.remove('border-transparent', 'text-text-secondary');
+            
+            strengthsBtn.classList.remove('border-primary-fixed', 'text-primary');
+            strengthsBtn.classList.add('border-transparent', 'text-text-secondary');
+
+            issuesContent.classList.remove('hidden');
+            issuesContent.classList.add('flex');
+            strengthsContent.classList.add('hidden');
+            strengthsContent.classList.remove('flex');
+        } else {
+            strengthsBtn.classList.add('border-primary-fixed', 'text-primary');
+            strengthsBtn.classList.remove('border-transparent', 'text-text-secondary');
+            
+            issuesBtn.classList.remove('border-primary-fixed', 'text-primary');
+            issuesBtn.classList.add('border-transparent', 'text-text-secondary');
+
+            strengthsContent.classList.remove('hidden');
+            strengthsContent.classList.add('flex');
+            issuesContent.classList.add('hidden');
+            issuesContent.classList.remove('flex');
+        }
+    }
+</script>
+</head>
+<body class="bg-background text-text-primary antialiased flex">
+<!-- SideNavBar (Shared Component) -->
+<nav class="hidden md:flex flex-col h-full py-stack-md px-stack-md dark:bg-surface-container-lowest fixed left-0 top-0 w-[240px] border-r border-surface-variant z-20 bg-primary">
+<div class="mb-stack-lg flex items-center"><span class="font-headline-md text-headline-md font-bold border-l-2 border-primary-fixed pl-2 text-on-primary">SELLER COPILOT</span></div>
+<button class="w-full text-on-primary py-3 rounded-lg font-label-caps text-label-caps mb-stack-lg hover:bg-opacity-90 transition-opacity bg-surface text-primary">
+            Current Product Analysis
+        </button>
+<ul class="flex flex-col gap-2 flex-grow">
+<li class="">
+<a class="flex items-center gap-3 p-3 font-medium hover:bg-surface-container hover:text-tertiary transition-colors duration-200 rounded-lg text-on-primary" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-body-sm text-body-sm">Overview</span>
+</a>
+</li>
+<li class="">
+<a class="flex items-center gap-3 p-3 font-medium hover:bg-surface-container hover:text-tertiary transition-colors duration-200 rounded-lg text-on-primary" href="#">
+<span class="material-symbols-outlined">analytics</span>
+<span class="font-body-sm text-body-sm">Customer Analysis</span>
+</a>
+</li>
+<li class="">
+<a class="flex items-center gap-3 p-3 font-bold bg-surface-container-highest rounded-lg transition-transform scale-95 active:scale-90 text-primary" href="#">
+<span class="material-symbols-outlined">priority_high</span>
+<span class="font-body-sm text-body-sm">Issues &amp; Strengths</span>
+</a>
+</li>
+<li class="">
+<a class="flex items-center gap-3 p-3 font-medium hover:bg-surface-container hover:text-tertiary transition-colors duration-200 rounded-lg text-on-primary" href="#">
+<span class="material-symbols-outlined">trending_up</span>
+<span class="font-body-sm text-body-sm">Improvement</span>
+</a>
+</li>
+<li class="">
+<a class="flex items-center gap-3 p-3 font-medium hover:bg-surface-container hover:text-tertiary transition-colors duration-200 rounded-lg text-on-primary" href="#">
+<span class="material-symbols-outlined">fact_check</span>
+<span class="font-body-sm text-body-sm">Evidence</span>
+</a>
+</li>
+<li class="">
+<a class="flex items-center gap-3 p-3 font-medium hover:bg-surface-container hover:text-tertiary transition-colors duration-200 rounded-lg text-on-primary" href="#">
+<span class="material-symbols-outlined">smart_toy</span>
+<span class="font-body-sm text-body-sm">AI Chat</span>
+</a>
+</li>
+<li class="">
+<a class="flex items-center gap-3 p-3 font-medium hover:bg-surface-container hover:text-tertiary transition-colors duration-200 rounded-lg text-on-primary" href="#">
+<span class="material-symbols-outlined">description</span>
+<span class="font-body-sm text-body-sm">Report</span>
+</a>
+</li>
+</ul>
+<div class="mt-auto pt-stack-md border-t border-surface-variant flex flex-col gap-2">
+<a class="flex items-center gap-3 p-3 font-medium hover:bg-surface-container hover:text-tertiary transition-colors duration-200 rounded-lg text-on-primary" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-body-sm text-body-sm">Settings</span>
+</a>
+<a class="flex items-center gap-3 p-3 font-medium hover:bg-surface-container hover:text-tertiary transition-colors duration-200 rounded-lg text-on-primary" href="#">
+<span class="material-symbols-outlined">help</span>
+<span class="font-body-sm text-body-sm">Support</span>
+</a>
+</div>
+</nav>
+<!-- Main Content Area -->
+<div class="flex-1 flex flex-col min-h-screen md:ml-[240px]">
+<!-- TopAppBar (Shared Component) -->
+<header class="hidden md:flex justify-end items-center px-margin-desktop h-16 bg-surface dark:bg-surface border-b border-surface-variant z-10 sticky top-0">
+<div class="flex items-center gap-4">
+<button class="bg-secondary-container text-primary font-label-caps text-label-caps px-4 py-2 rounded-full hover:opacity-80 transition-opacity">AI Chat</button>
+<button class="border border-primary text-primary font-label-caps text-label-caps px-4 py-2 rounded-lg hover:bg-surface-container transition-colors">Export Report</button>
+<button class="hover:text-tertiary transition-colors text-primary">
+<span class="material-symbols-outlined">refresh</span>
+</button>
+<img alt="User Workspace Profile" class="w-8 h-8 rounded-full object-cover border border-border-subtle" data-alt="A small, professional user avatar portrait of an individual in minimalist styling, set against a pristine white studio background. Soft, high-key lighting emphasizes a clean, corporate fashion-tech aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDQ454dJDSZwUXna_460uuxOPPTxnjLda11bEzCwZrniFuO7SIg_AGgKoCizzP_kZowzSy8uAZnRvP5JXUtEIwlLWkj1IQNdt0hqMYi-4q3TITZLv8jbgfmwj3HpyxD1P5J_dRa6IqPsNURg8lY4nz6uM2CfbwKPqxRtduQ14eUaE-lNgVs4UcxWi1kXp3mHWJOjPSp3iDuaCjWac5vqYRROJRNka676mROWVli3r7ihKhdKt15yQ6U">
+</div>
+</header>
+<!-- Canvas -->
+<main class="flex-1 p-margin-mobile md:p-margin-desktop max-w-[1440px] mx-auto w-full">
+<!-- Page Header -->
+<div class="mb-stack-xl mt-stack-md">
+<h1 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-text-primary mb-2 tracking-tight">Issues &amp; Strengths</h1>
+<p class="font-body-lg text-body-lg text-text-secondary">반복적으로 나타나는 고객 불만과 상품 강점을 확인합니다.</p>
+</div>
+<!-- Tabs -->
+<div class="flex border-b border-border-subtle mb-stack-lg">
+<button class="px-6 py-4 font-label-caps text-label-caps text-primary border-b-2 border-primary-fixed uppercase tracking-widest" id="btn-issues" onclick="switchTab('issues')">Issues</button>
+<button class="px-6 py-4 font-label-caps text-label-caps text-text-secondary border-b-2 border-transparent hover:text-primary transition-colors uppercase tracking-widest" id="btn-strengths" onclick="switchTab('strengths')">Strengths</button>
+</div>
+<!-- Content Grid -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter">
+<!-- Issue/Strength List Column -->
+<div class="md:col-span-8 relative">
+<!-- ISSUES CONTENT -->
+<div class="flex flex-col gap-stack-lg w-full" id="content-issues">
+<!-- Top Issue Item -->
+<article class="bg-surface border border-border-subtle rounded-xl p-6 md:p-8 hover:border-text-primary transition-colors duration-300">
+<div class="flex justify-between items-start mb-6">
+<div>
+<span class="font-mono-data text-mono-data text-text-secondary mb-1 block">#01</span>
+<h2 class="font-headline-md text-headline-md text-text-primary mb-2 uppercase">Sleeve Length</h2>
+<div class="flex gap-2 items-center">
+<span class="bg-negative-soft text-[#FF5C5C] px-3 py-1 rounded-full font-label-caps text-label-caps">68% NEGATIVE RATIO</span>
+<span class="font-body-sm text-body-sm text-text-secondary">31 reviews</span>
+</div>
+</div>
+<button class="text-text-secondary hover:text-primary transition-colors">
+<span class="material-symbols-outlined">open_in_new</span>
+</button>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+<div>
+<h3 class="font-label-caps text-label-caps text-text-secondary mb-2 uppercase">Primary Persona</h3>
+<p class="font-body-lg text-body-lg text-text-primary font-medium">160–164cm, M</p>
+</div>
+<div>
+<h3 class="font-label-caps text-label-caps text-text-secondary mb-2 uppercase">Related Option</h3>
+<p class="font-body-lg text-body-lg text-text-primary font-medium">M SIZE</p>
+</div>
+</div>
+<div class="bg-surface-container-low p-4 rounded-lg border-l-2 border-primary-fixed">
+<h3 class="font-label-caps text-label-caps text-text-secondary mb-2 uppercase">Representative Review</h3>
+<p class="font-body-sm text-body-sm text-text-primary italic">"핏은 좋은데 팔 부분이 많이 길어요."</p>
+</div>
+</article>
+<!-- Issue Item 2 -->
+<article class="bg-surface border border-border-subtle rounded-xl p-6 md:p-8 hover:border-text-primary transition-colors duration-300">
+<div class="flex justify-between items-start mb-6">
+<div>
+<span class="font-mono-data text-mono-data text-text-secondary mb-1 block">#02</span>
+<h2 class="font-headline-md text-headline-md text-text-primary mb-2 uppercase">WHITE Transparency</h2>
+<div class="flex gap-2 items-center">
+<span class="bg-negative-soft text-[#FF5C5C] px-3 py-1 rounded-full font-label-caps text-label-caps">45% NEGATIVE RATIO</span>
+<span class="font-body-sm text-body-sm text-text-secondary">21 reviews</span>
+</div>
+</div>
+<button class="text-text-secondary hover:text-primary transition-colors">
+<span class="material-symbols-outlined">open_in_new</span>
+</button>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+<div>
+<h3 class="font-label-caps text-label-caps text-text-secondary mb-2 uppercase">Primary Persona</h3>
+<p class="font-body-lg text-body-lg text-text-primary font-medium">All Profiles</p>
+</div>
+<div>
+<h3 class="font-label-caps text-label-caps text-text-secondary mb-2 uppercase">Related Option</h3>
+<p class="font-body-lg text-body-lg text-text-primary font-medium">WHITE</p>
+</div>
+</div>
+</article>
+<!-- Issue Item 3 -->
+<article class="bg-surface border border-border-subtle rounded-xl p-6 md:p-8 hover:border-text-primary transition-colors duration-300">
+<div class="flex justify-between items-start mb-6">
+<div>
+<span class="font-mono-data text-mono-data text-text-secondary mb-1 block">#03</span>
+<h2 class="font-headline-md text-headline-md text-text-primary mb-2 uppercase">Material Wrinkles</h2>
+<div class="flex gap-2 items-center">
+<span class="bg-negative-soft text-[#FF5C5C] px-3 py-1 rounded-full font-label-caps text-label-caps">38% NEGATIVE RATIO</span>
+<span class="font-body-sm text-body-sm text-text-secondary">18 reviews</span>
+</div>
+</div>
+<button class="text-text-secondary hover:text-primary transition-colors">
+<span class="material-symbols-outlined">open_in_new</span>
+</button>
+</div>
+</article>
+</div>
+<!-- STRENGTHS CONTENT -->
+<div class="hidden flex-col gap-stack-lg w-full" id="content-strengths">
+<!-- Top Strength Item -->
+<article class="bg-surface border border-border-subtle rounded-xl p-6 md:p-8 hover:border-text-primary transition-colors duration-300">
+<div class="flex justify-between items-start mb-6">
+<div>
+<span class="font-mono-data text-mono-data text-text-secondary mb-1 block">#01</span>
+<h2 class="font-headline-md text-headline-md text-text-primary mb-2 uppercase">DESIGN</h2>
+<div class="flex gap-2 items-center">
+<span class="bg-accent-soft text-secondary px-3 py-1 rounded-full font-label-caps text-label-caps">81% POSITIVE RATIO</span>
+<span class="font-body-sm text-body-sm text-text-secondary">82 reviews</span>
+</div>
+</div>
+<button class="text-text-secondary hover:text-primary transition-colors">
+<span class="material-symbols-outlined">open_in_new</span>
+</button>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+<div>
+<h3 class="font-label-caps text-label-caps text-text-secondary mb-2 uppercase">Primary Persona</h3>
+<p class="font-body-lg text-body-lg text-text-primary font-medium">165–169cm, M</p>
+</div>
+<div>
+<h3 class="font-label-caps text-label-caps text-text-secondary mb-2 uppercase">Related Option</h3>
+<p class="font-body-lg text-body-lg text-text-primary font-medium">BLACK</p>
+</div>
+<div>
+<h3 class="font-label-caps text-label-caps text-text-secondary mb-2 uppercase">Marketing Potential</h3>
+<p class="font-body-lg text-body-lg text-secondary font-medium">HIGH</p>
+</div>
+</div>
+<div class="bg-accent-soft p-4 rounded-lg border-l-2 border-secondary">
+<h3 class="font-label-caps text-label-caps text-text-secondary mb-2 uppercase">Representative Review</h3>
+<p class="font-body-sm text-body-sm text-text-primary italic">"디자인이 너무 예뻐서 데일리로 입기 딱 좋아요. 블랙 색상이 특히 고급스럽습니다."</p>
+<button class="mt-4 text-primary font-medium flex items-center gap-1 hover:underline text-body-sm">View Evidence <span class="material-symbols-outlined text-[18px]">arrow_forward</span></button>
+</div>
+</article>
+</div>
+</div>
+<!-- Visualization Column -->
+<div class="md:col-span-4">
+<div class="bg-surface border border-border-subtle rounded-xl p-6 sticky top-[100px]">
+<h3 class="font-headline-md text-headline-md text-text-primary mb-6">Category Distribution</h3>
+<div class="flex flex-col gap-4">
+<!-- Category 1 -->
+<div>
+<div class="flex justify-between font-label-caps text-label-caps text-text-primary mb-2">
+<span class="">FIT (Sleeve)</span>
+<span class="">55%</span>
+</div>
+<div class="w-full bg-surface-container h-2 rounded-full overflow-hidden">
+<div class="bg-primary h-full w-[55%]"></div>
+</div>
+</div>
+<!-- Category 2 -->
+<div>
+<div class="flex justify-between font-label-caps text-label-caps text-text-secondary mb-2">
+<span class="">TRANSPARENCY</span>
+<span class="">30%</span>
+</div>
+<div class="w-full bg-surface-container h-2 rounded-full overflow-hidden">
+<div class="bg-outline h-full w-[30%]"></div>
+</div>
+</div>
+<!-- Category 3 -->
+<div>
+<div class="flex justify-between font-label-caps text-label-caps text-text-secondary mb-2">
+<span class="">QUALITY (Stitching)</span>
+<span class="">15%</span>
+</div>
+<div class="w-full bg-surface-container h-2 rounded-full overflow-hidden">
+<div class="bg-surface-tint h-full w-[15%]"></div>
+</div>
+</div>
+</div>
+<div class="mt-8 pt-6 border-t border-border-subtle">
+<p class="font-body-sm text-body-sm text-text-secondary">AI analysis indicates <strong class="text-primary font-medium">Fit</strong> as the primary area requiring immediate attention for the current production run.</p>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+
+
+</body></html>

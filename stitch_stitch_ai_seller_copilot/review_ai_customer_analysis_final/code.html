@@ -1,0 +1,482 @@
+<!DOCTYPE html><html lang="ko"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Customer Analysis - SELLER COPILOT</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-secondary-container": "#007508",
+                        "surface-dim": "#dadad8",
+                        "negative-soft": "#FFF3F3",
+                        "surface": "#FFFFFF",
+                        "on-tertiary-container": "#e94c4d",
+                        "on-surface-variant": "#444748",
+                        "tertiary-fixed": "#ffdad7",
+                        "surface-container-low": "#f4f4f2",
+                        "on-primary": "#ffffff",
+                        "secondary-fixed": "#7bfe6a",
+                        "primary-container": "#1c1b1b",
+                        "on-secondary-fixed-variant": "#005304",
+                        "on-surface": "#1a1c1b",
+                        "accent-soft": "#F1FFE8",
+                        "primary": "#000000",
+                        "border-subtle": "#E8E8E5",
+                        "secondary-fixed-dim": "#5ee151",
+                        "text-primary": "#111111",
+                        "outline-variant": "#c4c7c7",
+                        "outline": "#747878",
+                        "secondary-container": "#7bfe6a",
+                        "surface-variant": "#e2e3e1",
+                        "on-secondary-fixed": "#002201",
+                        "inverse-on-surface": "#f1f1ef",
+                        "error": "#ba1a1a",
+                        "on-background": "#1a1c1b",
+                        "tertiary-fixed-dim": "#ffb3af",
+                        "on-tertiary": "#ffffff",
+                        "on-secondary": "#ffffff",
+                        "primary-fixed": "#e5e2e1",
+                        "surface-tint": "#5f5e5e",
+                        "surface-container-highest": "#e2e3e1",
+                        "background": "#f9f9f7",
+                        "on-primary-container": "#858383",
+                        "on-tertiary-fixed": "#410005",
+                        "inverse-primary": "#c9c6c5",
+                        "error-container": "#ffdad6",
+                        "surface-container-high": "#e8e8e6",
+                        "on-error": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "surface-container-lowest": "#ffffff",
+                        "on-primary-fixed-variant": "#474646",
+                        "surface-bright": "#f9f9f7",
+                        "text-secondary": "#6B6B6B",
+                        "tertiary": "#000000",
+                        "primary-fixed-dim": "#c9c6c5",
+                        "on-primary-fixed": "#1c1b1b",
+                        "secondary": "#006e07",
+                        "inverse-surface": "#2f3130",
+                        "tertiary-container": "#410005",
+                        "on-tertiary-fixed-variant": "#920418",
+                        "surface-container": "#eeeeec"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "gutter": "24px",
+                        "margin-desktop": "40px",
+                        "margin-mobile": "20px",
+                        "stack-sm": "12px",
+                        "stack-xs": "4px",
+                        "stack-lg": "48px",
+                        "stack-xl": "80px",
+                        "stack-md": "24px"
+                    },
+                    "fontFamily": {
+                        "headline-lg-mobile": ["Inter"],
+                        "mono-data": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "label-caps": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "display-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-lg-mobile": ["24px", { "lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "mono-data": ["14px", { "lineHeight": "1.4", "letterSpacing": "-0.01em", "fontWeight": "500" }],
+                        "headline-md": ["20px", { "lineHeight": "1.4", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "headline-lg": ["32px", { "lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "label-caps": ["12px", { "lineHeight": "1.2", "letterSpacing": "0.1em", "fontWeight": "700" }],
+                        "body-lg": ["16px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "body-sm": ["14px", { "lineHeight": "1.5", "fontWeight": "400" }],
+                        "display-lg": ["48px", { "lineHeight": "1.1", "letterSpacing": "-0.03em", "fontWeight": "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; background-color: #f9f9f7; color: #111111; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .material-symbols-outlined.fill { font-variation-settings: 'FILL' 1; }
+        
+        /* Custom scrollbar */
+        .custom-scroll::-webkit-scrollbar { width: 6px; height: 6px; }
+        .custom-scroll::-webkit-scrollbar-track { background: transparent; }
+        .custom-scroll::-webkit-scrollbar-thumb { background: #e2e3e1; border-radius: 4px; }
+        
+        /* Heatmap cell hover effect */
+        .heatmap-cell { position: relative; cursor: pointer; }
+        .heatmap-cell:hover .cell-circle { transform: scale(1.1); box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); }
+        .cell-circle { transition: all 0.2s ease; }
+        
+        /* Tooltip visibility */
+        .heatmap-tooltip { opacity: 0; pointer-events: none; transition: opacity 0.2s; z-index: 50; }
+        .heatmap-cell:hover .heatmap-tooltip { opacity: 1; pointer-events: auto; }
+        
+        /* Heatmap Colors */
+        .heat-strong-neg { background-color: #ba1a1a; color: white; }
+        .heat-mild-neg { background-color: #ffdad6; color: #410005; }
+        .heat-mixed { background-color: #e2e3e1; color: #1a1c1b; }
+        .heat-mild-pos { background-color: #F1FFE8; color: #005304; }
+        .heat-strong-pos { background-color: #006e07; color: white; }
+    </style>
+</head>
+<body class="bg-background flex w-full h-screen overflow-hidden text-text-primary antialiased selection:bg-secondary-fixed selection:text-tertiary">
+<!-- SideNavBar -->
+<nav class="fixed left-0 top-0 h-full w-[240px] bg-[#1a1c1b] border-r border-white/10 flex flex-col py-stack-md px-stack-md z-50 hidden md:flex">
+<!-- Header -->
+<div class="flex items-center gap-2 mb-stack-lg">
+<span class="font-headline-md text-headline-md font-bold border-l-2 border-secondary-fixed pl-2 text-white">SELLER COPILOT</span>
+</div>
+<!-- Navigation Links -->
+<div class="flex flex-col gap-2 flex-grow">
+<a class="flex items-center gap-3 px-3 py-2 text-white/70 font-medium hover:bg-white/10 hover:text-white transition-colors duration-200 rounded-lg" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-caps text-label-caps">Overview</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 font-bold bg-surface-container-highest rounded-lg transition-transform scale-95 active:scale-90 text-white" href="#">
+<span class="material-symbols-outlined">analytics</span>
+<span class="font-label-caps text-label-caps">Customer Analysis</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-white/70 font-medium hover:bg-white/10 hover:text-white transition-colors duration-200 rounded-lg" href="#">
+<span class="material-symbols-outlined">priority_high</span>
+<span class="font-label-caps text-label-caps">Issues &amp; Strengths</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-white/70 font-medium hover:bg-white/10 hover:text-white transition-colors duration-200 rounded-lg" href="#">
+<span class="material-symbols-outlined">trending_up</span>
+<span class="font-label-caps text-label-caps">Improvement</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-white/70 font-medium hover:bg-white/10 hover:text-white transition-colors duration-200 rounded-lg" href="#">
+<span class="material-symbols-outlined">fact_check</span>
+<span class="font-label-caps text-label-caps">Evidence</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-white/70 font-medium hover:bg-white/10 hover:text-white transition-colors duration-200 rounded-lg" href="#">
+<span class="material-symbols-outlined">smart_toy</span>
+<span class="font-label-caps text-label-caps">AI Chat</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-white/70 font-medium hover:bg-white/10 hover:text-white transition-colors duration-200 rounded-lg" href="#">
+<span class="material-symbols-outlined">description</span>
+<span class="font-label-caps text-label-caps">Report</span>
+</a>
+</div>
+<!-- CTA -->
+<div class="mt-auto mb-stack-md">
+<button class="w-full bg-secondary-fixed text-primary font-label-caps text-label-caps py-3 px-4 rounded-lg flex items-center justify-center gap-2 hover:opacity-90 transition-opacity">
+<span class="">Current Product Analysis</span>
+</button>
+</div>
+<!-- Footer Links -->
+<div class="flex flex-col gap-2 pt-4 border-t border-surface-variant/20">
+<a class="flex items-center gap-3 px-3 py-2 text-white/70 font-medium hover:bg-white/10 hover:text-white transition-colors duration-200 rounded-lg" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-label-caps text-label-caps">Settings</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-white/70 font-medium hover:bg-white/10 hover:text-white transition-colors duration-200 rounded-lg" href="#">
+<span class="material-symbols-outlined">help</span>
+<span class="font-label-caps text-label-caps">Support</span>
+</a>
+</div>
+</nav>
+<!-- Main Content Area -->
+<main class="md:ml-[240px] flex-1 flex flex-col h-full overflow-hidden bg-background">
+<!-- TopAppBar -->
+<header class="flex justify-between items-center px-margin-desktop h-16 bg-surface/80 backdrop-blur-md border-b border-border-subtle sticky top-0 z-40 shrink-0">
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-text-secondary text-[20px]">inventory_2</span>
+<span class="font-body-sm font-medium text-text-primary">MUSINSA STANDARD Women's Oversized Shirt <span class="text-text-secondary font-normal ml-2">2,312 analyzed reviews</span></span>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 text-text-secondary hover:text-primary transition-colors rounded-full hover:bg-surface-container-low">
+<span class="material-symbols-outlined">refresh</span>
+</button>
+<button class="bg-surface text-primary border border-border-subtle rounded-lg px-4 py-2 font-label-caps text-label-caps hover:bg-surface-container transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">download</span>
+                Export Report
+            </button>
+<button class="px-4 py-2 bg-primary text-white font-label-caps text-label-caps rounded-lg hover:bg-primary/90 transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">smart_toy</span>
+                AI Chat
+            </button>
+<div class="w-8 h-8 rounded-full bg-surface-container-high border border-border-subtle overflow-hidden flex items-center justify-center">
+<span class="material-symbols-outlined text-text-secondary text-sm">person</span>
+</div>
+</div>
+</header>
+<!-- Scrollable Content -->
+<div class="flex-1 overflow-y-auto p-margin-desktop bg-background custom-scroll">
+<!-- Page Header -->
+<div class="mb-stack-lg max-w-[1440px] mx-auto">
+<h1 class="font-headline-lg text-headline-lg text-text-primary mb-2">Customer Analysis</h1>
+<p class="font-body-lg text-body-lg text-text-secondary">어떤 고객에게 어떤 상품 경험이 발생하는지 분석합니다.</p>
+</div>
+<!-- Filters -->
+<div class="max-w-[1440px] mx-auto mb-stack-md flex flex-wrap gap-3">
+<button class="flex items-center gap-2 bg-surface border border-border-subtle rounded-full px-4 py-2 hover:bg-surface-container transition-colors">
+<span class="font-body-sm text-text-primary">Gender</span>
+<span class="material-symbols-outlined text-[16px] text-text-secondary">expand_more</span>
+</button>
+<button class="flex items-center gap-2 bg-surface border border-border-subtle rounded-full px-4 py-2 hover:bg-surface-container transition-colors">
+<span class="font-body-sm text-text-primary">Height</span>
+<span class="material-symbols-outlined text-[16px] text-text-secondary">expand_more</span>
+</button>
+<button class="flex items-center gap-2 bg-surface border border-border-subtle rounded-full px-4 py-2 hover:bg-surface-container transition-colors">
+<span class="font-body-sm text-text-primary">Weight</span>
+<span class="material-symbols-outlined text-[16px] text-text-secondary">expand_more</span>
+</button>
+<button class="flex items-center gap-2 bg-surface border border-border-subtle rounded-full px-4 py-2 hover:bg-surface-container transition-colors">
+<span class="font-body-sm text-text-primary">Size</span>
+<span class="material-symbols-outlined text-[16px] text-text-secondary">expand_more</span>
+</button>
+<button class="flex items-center gap-2 bg-surface border border-border-subtle rounded-full px-4 py-2 hover:bg-surface-container transition-colors">
+<span class="font-body-sm text-text-primary">Color</span>
+<span class="material-symbols-outlined text-[16px] text-text-secondary">expand_more</span>
+</button>
+</div>
+<div class="max-w-[1440px] mx-auto space-y-stack-lg">
+<!-- Data Visualization Section -->
+<section class="bg-surface border border-border-subtle rounded-xl p-6">
+<div class="flex justify-between items-center mb-6">
+<h2 class="font-headline-md text-headline-md text-text-primary">Persona Analysis Matrix</h2>
+<div class="flex items-center gap-4 font-body-sm text-text-secondary text-[12px]">
+<div class="flex items-center gap-1"><span class="w-3 h-3 rounded-full heat-strong-neg inline-block"></span> Strong Neg</div>
+<div class="flex items-center gap-1"><span class="w-3 h-3 rounded-full heat-mild-neg inline-block"></span> Mild Neg</div>
+<div class="flex items-center gap-1"><span class="w-3 h-3 rounded-full heat-mixed inline-block"></span> Mixed</div>
+<div class="flex items-center gap-1"><span class="w-3 h-3 rounded-full heat-mild-pos inline-block"></span> Mild Pos</div>
+<div class="flex items-center gap-1"><span class="w-3 h-3 rounded-full heat-strong-pos inline-block"></span> Strong Pos</div>
+<div class="flex items-center gap-1 ml-2"><span class="font-bold text-text-primary">-</span> No Data</div>
+</div>
+</div>
+<!-- Heatmap Grid -->
+<div class="overflow-x-auto custom-scroll pb-4">
+<div class="min-w-[900px]">
+<!-- Header Row -->
+<div class="grid grid-cols-8 gap-2 mb-4">
+<div class="col-span-1"></div> <!-- Empty top-left -->
+<div class="text-center font-label-caps text-text-secondary">Fit</div>
+<div class="text-center font-label-caps text-text-secondary">Material</div>
+<div class="text-center font-label-caps text-text-secondary">Color</div>
+<div class="text-center font-label-caps text-text-secondary">Design</div>
+<div class="text-center font-label-caps text-text-secondary">Quality</div>
+<div class="text-center font-label-caps text-text-secondary">Transparency</div>
+<div class="text-center font-label-caps text-text-secondary">Care</div>
+</div>
+<!-- Row 1: 150-154cm / S -->
+<div class="grid grid-cols-8 gap-2 mb-2 items-center">
+<div class="text-right pr-4 font-body-sm text-text-primary font-medium whitespace-nowrap">150-154cm / S</div>
+<!-- Fit Cell -->
+<div class="heatmap-cell h-16 bg-surface-container-lowest border border-border-subtle rounded-lg flex items-center justify-center">
+<div class="cell-circle w-8 h-8 rounded-full heat-strong-neg flex items-center justify-center font-bold text-xs"></div>
+</div>
+<!-- Material Cell -->
+<div class="heatmap-cell h-16 bg-surface-container-lowest border border-border-subtle rounded-lg flex items-center justify-center">
+<div class="cell-circle w-8 h-8 rounded-full heat-mild-neg flex items-center justify-center font-bold text-xs"></div>
+</div>
+<!-- Color Cell -->
+<div class="heatmap-cell h-16 bg-surface-container-lowest border border-border-subtle rounded-lg flex items-center justify-center">
+<div class="cell-circle w-8 h-8 rounded-full heat-mixed flex items-center justify-center font-bold text-xs"></div>
+</div>
+<!-- Design Cell -->
+<div class="heatmap-cell h-16 bg-surface-container-lowest border border-border-subtle rounded-lg flex items-center justify-center">
+<div class="cell-circle w-8 h-8 rounded-full heat-mild-pos flex items-center justify-center font-bold text-xs"></div>
+</div>
+<!-- Quality Cell -->
+<div class="heatmap-cell h-16 bg-surface-container-lowest border border-border-subtle rounded-lg flex items-center justify-center">
+<div class="cell-circle w-8 h-8 rounded-full heat-strong-pos flex items-center justify-center font-bold text-xs"></div>
+</div>
+<!-- Transparency Cell -->
+<div class="heatmap-cell h-16 bg-surface-container-lowest border border-border-subtle rounded-lg flex items-center justify-center">
+<div class="cell-circle w-8 h-8 rounded-full heat-mixed flex items-center justify-center font-bold text-xs"></div>
+</div>
+<!-- Care Cell -->
+<div class="heatmap-cell h-16 bg-surface-container-lowest border border-border-subtle rounded-lg flex items-center justify-center">
+<div class="cell-circle w-8 h-8 rounded-full heat-mixed flex items-center justify-center font-bold text-xs"></div>
+</div>
+</div>
+<!-- Row 2: 155-159cm / S -->
+<div class="grid grid-cols-8 gap-2 mb-2 items-center">
+<div class="text-right pr-4 font-body-sm text-text-primary font-medium whitespace-nowrap">155-159cm / S</div>
+<div class="heatmap-cell h-16 bg-surface-container-lowest border border-border-subtle rounded-lg flex items-center justify-center">
+<div class="cell-circle w-8 h-8 rounded-full heat-mild-neg flex items-center justify-center font-bold text-xs"></div>
+</div>
+<div class="heatmap-cell h-16 bg-surface-container-lowest border border-border-subtle rounded-lg flex items-center justify-center">
+<div class="cell-circle w-8 h-8 rounded-full heat-mixed flex items-center justify-center font-bold text-xs"></div>
+</div>
+<div class="heatmap-cell h-16 bg-surface-container-lowest border border-border-subtle rounded-lg flex items-center justify-center">
+<div class="cell-circle w-8 h-8 rounded-full heat-mixed flex items-center justify-center font-bold text-xs"></div>
+</div>
+<div class="heatmap-cell h-16 bg-surface-container-lowest border border-border-subtle rounded-lg flex items-center justify-center">
+<div class="cell-circle w-8 h-8 rounded-full heat-strong-pos flex items-center justify-center font-bold text-xs"></div>
+</div>
+<div class="heatmap-cell h-16 bg-surface-container-lowest border border-border-subtle rounded-lg flex items-center justify-center">
+<div class="cell-circle w-8 h-8 rounded-full heat-strong-pos flex items-center justify-center font-bold text-xs"></div>
+</div>
+<div class="heatmap-cell h-16 bg-surface-container-lowest border border-border-subtle rounded-lg flex items-center justify-center">
+<div class="cell-circle w-8 h-8 rounded-full heat-mixed flex items-center justify-center font-bold text-xs"></div>
+</div>
+<div class="heatmap-cell h-16 bg-surface-container-lowest border border-border-subtle rounded-lg flex items-center justify-center">
+<div class="cell-circle w-8 h-8 rounded-full heat-mixed flex items-center justify-center font-bold text-xs"></div>
+</div>
+</div>
+<!-- Row 3: 160-164cm / M -->
+<div class="grid grid-cols-8 gap-2 mb-2 items-center">
+<div class="text-right pr-4 font-body-sm text-text-primary font-medium whitespace-nowrap">160-164cm / M</div>
+<div class="heatmap-cell h-16 bg-surface-container-lowest border-primary border-2 rounded-lg flex items-center justify-center relative shadow-sm">
+<div class="cell-circle w-8 h-8 rounded-full heat-strong-neg flex items-center justify-center font-bold text-xs"></div>
+</div>
+<div class="heatmap-cell h-16 bg-surface-container-lowest border border-border-subtle rounded-lg flex items-center justify-center">
+<div class="cell-circle w-8 h-8 rounded-full heat-mild-pos flex items-center justify-center font-bold text-xs"></div>
+</div>
+<div class="heatmap-cell h-16 bg-surface-container-lowest border border-border-subtle rounded-lg flex items-center justify-center">
+<div class="cell-circle w-8 h-8 rounded-full heat-mild-pos flex items-center justify-center font-bold text-xs"></div>
+</div>
+<div class="heatmap-cell h-16 bg-surface-container-lowest border border-border-subtle rounded-lg flex items-center justify-center">
+<div class="cell-circle w-8 h-8 rounded-full heat-strong-pos flex items-center justify-center font-bold text-xs"></div>
+</div>
+<div class="heatmap-cell h-16 bg-surface-container-lowest border border-border-subtle rounded-lg flex items-center justify-center">
+<div class="cell-circle w-8 h-8 rounded-full heat-mild-pos flex items-center justify-center font-bold text-xs"></div>
+</div>
+<div class="heatmap-cell h-16 bg-surface-container-lowest border border-border-subtle rounded-lg flex items-center justify-center">
+<div class="cell-circle w-8 h-8 rounded-full heat-mixed flex items-center justify-center font-bold text-xs"></div>
+</div>
+<div class="heatmap-cell h-16 bg-surface-container-lowest border border-border-subtle rounded-lg flex items-center justify-center">
+<div class="cell-circle w-8 h-8 rounded-full heat-mild-neg flex items-center justify-center font-bold text-xs"></div>
+</div>
+</div>
+<!-- Row 4: 165-169cm / M -->
+<div class="grid grid-cols-8 gap-2 mb-2 items-center">
+<div class="text-right pr-4 font-body-sm text-text-primary font-medium whitespace-nowrap">165-169cm / M</div>
+<div class="heatmap-cell h-16 bg-surface-container-lowest border border-border-subtle rounded-lg flex items-center justify-center">
+<div class="cell-circle w-8 h-8 rounded-full heat-mild-pos flex items-center justify-center font-bold text-xs"></div>
+</div>
+<div class="heatmap-cell h-16 bg-surface-container-lowest border border-border-subtle rounded-lg flex items-center justify-center">
+<div class="cell-circle w-8 h-8 rounded-full heat-strong-pos flex items-center justify-center font-bold text-xs"></div>
+</div>
+<div class="heatmap-cell h-16 bg-surface-container-lowest border border-border-subtle rounded-lg flex items-center justify-center">
+<div class="cell-circle w-8 h-8 rounded-full heat-strong-pos flex items-center justify-center font-bold text-xs"></div>
+</div>
+<div class="heatmap-cell h-16 bg-surface-container-lowest border border-border-subtle rounded-lg flex items-center justify-center">
+<div class="font-bold text-text-secondary text-lg">-</div>
+</div>
+<div class="heatmap-cell h-16 bg-surface-container-lowest border border-border-subtle rounded-lg flex items-center justify-center">
+<div class="cell-circle w-8 h-8 rounded-full heat-mixed flex items-center justify-center font-bold text-xs"></div>
+</div>
+<div class="heatmap-cell h-16 bg-surface-container-lowest border border-border-subtle rounded-lg flex items-center justify-center">
+<div class="font-bold text-text-secondary text-lg">-</div>
+</div>
+<div class="heatmap-cell h-16 bg-surface-container-lowest border border-border-subtle rounded-lg flex items-center justify-center">
+<div class="cell-circle w-8 h-8 rounded-full heat-mixed flex items-center justify-center font-bold text-xs"></div>
+</div>
+</div>
+<!-- Row 5: 170cm+ / L -->
+<div class="grid grid-cols-8 gap-2 items-center">
+<div class="text-right pr-4 font-body-sm text-text-primary font-medium whitespace-nowrap">170cm+ / L</div>
+<div class="heatmap-cell h-16 bg-surface-container-lowest border border-border-subtle rounded-lg flex items-center justify-center">
+<div class="cell-circle w-8 h-8 rounded-full heat-mild-neg flex items-center justify-center font-bold text-xs"></div>
+</div>
+<div class="heatmap-cell h-16 bg-surface-container-lowest border border-border-subtle rounded-lg flex items-center justify-center">
+<div class="cell-circle w-8 h-8 rounded-full heat-mixed flex items-center justify-center font-bold text-xs"></div>
+</div>
+<div class="heatmap-cell h-16 bg-surface-container-lowest border border-border-subtle rounded-lg flex items-center justify-center">
+<div class="cell-circle w-8 h-8 rounded-full heat-mild-pos flex items-center justify-center font-bold text-xs"></div>
+</div>
+<div class="heatmap-cell h-16 bg-surface-container-lowest border border-border-subtle rounded-lg flex items-center justify-center">
+<div class="font-bold text-text-secondary text-lg">-</div>
+</div>
+<div class="heatmap-cell h-16 bg-surface-container-lowest border border-border-subtle rounded-lg flex items-center justify-center">
+<div class="font-bold text-text-secondary text-lg">-</div>
+</div>
+<div class="heatmap-cell h-16 bg-surface-container-lowest border border-border-subtle rounded-lg flex items-center justify-center">
+<div class="font-bold text-text-secondary text-lg">-</div>
+</div>
+<div class="heatmap-cell h-16 bg-surface-container-lowest border border-border-subtle rounded-lg flex items-center justify-center">
+<div class="font-bold text-text-secondary text-lg">-</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Detail Panel -->
+<section class="bg-surface border border-border-subtle rounded-xl p-6">
+<div class="flex items-center gap-2 mb-6 border-b border-border-subtle pb-4">
+<span class="material-symbols-outlined text-primary">info</span>
+<h2 class="font-headline-md text-headline-md text-text-primary">Selected Persona Detail</h2>
+<span class="bg-surface-container px-3 py-1 rounded-full font-label-caps text-label-caps text-text-secondary ml-2">160–164cm / M x Fit</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<!-- Stats -->
+<div class="col-span-1 space-y-6">
+<div>
+<p class="font-label-caps text-label-caps text-text-secondary mb-2">Sentiment Split</p>
+<div class="flex flex-col gap-2">
+<div class="flex justify-between items-center font-body-sm text-body-sm">
+<span class="text-error font-medium">Negative</span>
+<span class="font-bold">68%</span>
+</div>
+<div class="w-full h-2 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-error" style="width: 68%"></div>
+</div>
+<div class="flex justify-between items-center font-body-sm text-body-sm mt-2">
+<span class="text-secondary font-medium">Positive</span>
+<span class="font-bold">21%</span>
+</div>
+<div class="w-full h-2 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-secondary-fixed" style="width: 21%"></div>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div class="bg-surface-container-low p-4 rounded-lg">
+<p class="font-label-caps text-label-caps text-text-secondary mb-1">Related Reviews</p>
+<p class="font-headline-md text-headline-md text-primary">31</p>
+</div>
+<div class="bg-negative-soft p-4 rounded-lg border border-error-container">
+<p class="font-label-caps text-label-caps text-error mb-1">Top Issue</p>
+<p class="font-body-sm text-body-sm font-bold text-on-tertiary-container">Sleeve Length</p>
+</div>
+</div>
+</div>
+<!-- Evidence -->
+<div class="col-span-1 md:col-span-2 border-t md:border-t-0 md:border-l border-border-subtle pt-6 md:pt-0 md:pl-8">
+<div class="flex justify-between items-center mb-4">
+<h3 class="font-label-caps text-label-caps text-text-secondary">Representative Evidence</h3>
+<button class="text-tertiary font-label-caps text-label-caps hover:underline flex items-center gap-1">
+                                View all 31 <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</button>
+</div>
+<div class="space-y-4">
+<div class="bg-surface-container-low p-4 rounded-lg border border-border-subtle relative">
+<div class="absolute -left-3 top-4 bg-error text-white w-6 h-6 rounded-full flex items-center justify-center shadow-sm">
+<span class="material-symbols-outlined text-[14px]">thumb_down</span>
+</div>
+<p class="font-body-sm text-body-sm text-text-primary italic mb-2">"기장은 딱 좋은데 소매가 너무 길어요. 오버핏인건 알지만 손을 다 덮을 정도라서 항상 롤업해서 입어야 해요. 162cm 기준 M사이즈 소매는 좀 에바인듯..."</p>
+<p class="font-label-caps text-label-caps text-text-secondary text-[10px]">162cm • 55kg • M size • 2023.10.15</p>
+</div>
+<div class="bg-surface-container-low p-4 rounded-lg border border-border-subtle relative">
+<div class="absolute -left-3 top-4 bg-error text-white w-6 h-6 rounded-full flex items-center justify-center shadow-sm">
+<span class="material-symbols-outlined text-[14px]">thumb_down</span>
+</div>
+<p class="font-body-sm text-body-sm text-text-primary italic mb-2">"어깨랑 품은 예쁘게 떨어지는데 소매통이 넓고 길어서 일할때 불편해요. 밥먹을때 반찬 묻을까봐 계속 신경쓰여요."</p>
+<p class="font-label-caps text-label-caps text-text-secondary text-[10px]">160cm • 50kg • M size • 2023.10.12</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+</div>
+</main>
+
+
+</body></html>

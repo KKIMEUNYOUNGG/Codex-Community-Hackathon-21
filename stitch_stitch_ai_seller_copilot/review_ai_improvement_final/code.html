@@ -1,0 +1,351 @@
+<!DOCTYPE html><html lang="en" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Improvement Priority - SELLER COPILOT</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "outline-variant": "#c4c7c7",
+                        "border-subtle": "#E8E8E5",
+                        "surface-variant": "#e2e3e1",
+                        "tertiary-container": "#410005",
+                        "on-background": "#1a1c1b",
+                        "error": "#ba1a1a",
+                        "on-primary-container": "#858383",
+                        "surface-tint": "#5f5e5e",
+                        "on-primary-fixed-variant": "#474646",
+                        "surface-dim": "#dadad8",
+                        "on-tertiary-container": "#e94c4d",
+                        "on-secondary-container": "#007508",
+                        "on-tertiary": "#ffffff",
+                        "surface": "#FFFFFF",
+                        "surface-container-lowest": "#ffffff",
+                        "inverse-primary": "#c9c6c5",
+                        "on-secondary-fixed": "#002201",
+                        "surface-container": "#eeeeec",
+                        "inverse-surface": "#2f3130",
+                        "error-container": "#ffdad6",
+                        "text-primary": "#111111",
+                        "tertiary-fixed": "#ffdad7",
+                        "on-primary-fixed": "#1c1b1b",
+                        "surface-container-low": "#f4f4f2",
+                        "secondary-container": "#7bfe6a",
+                        "primary-fixed-dim": "#c9c6c5",
+                        "secondary-fixed-dim": "#5ee151",
+                        "tertiary": "#000000",
+                        "on-surface-variant": "#444748",
+                        "secondary": "#006e07",
+                        "tertiary-fixed-dim": "#ffb3af",
+                        "inverse-on-surface": "#f1f1ef",
+                        "background": "#f9f9f7",
+                        "on-surface": "#1a1c1b",
+                        "primary-fixed": "#e5e2e1",
+                        "on-secondary": "#ffffff",
+                        "on-tertiary-fixed": "#410005",
+                        "on-secondary-fixed-variant": "#005304",
+                        "on-primary": "#ffffff",
+                        "accent-soft": "#F1FFE8",
+                        "surface-bright": "#f9f9f7",
+                        "on-error-container": "#93000a",
+                        "negative-soft": "#FFF3F3",
+                        "on-error": "#ffffff",
+                        "on-tertiary-fixed-variant": "#920418",
+                        "surface-container-high": "#e8e8e6",
+                        "outline": "#747878",
+                        "secondary-fixed": "#7bfe6a",
+                        "text-secondary": "#6B6B6B",
+                        "primary": "#000000",
+                        "surface-container-highest": "#e2e3e1",
+                        "primary-container": "#1c1b1b"
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    spacing: {
+                        "gutter": "24px",
+                        "margin-desktop": "40px",
+                        "margin-mobile": "20px",
+                        "stack-sm": "12px",
+                        "stack-xs": "4px",
+                        "stack-lg": "48px",
+                        "stack-xl": "80px",
+                        "stack-md": "24px"
+                    },
+                    fontFamily: {
+                        "headline-lg-mobile": ["Inter"],
+                        "mono-data": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "label-caps": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "display-lg": ["Inter"]
+                    },
+                    fontSize: {
+                        "headline-lg-mobile": ["24px", { lineHeight: "1.2", letterSpacing: "-0.02em", fontWeight: "700" }],
+                        "mono-data": ["14px", { lineHeight: "1.4", letterSpacing: "-0.01em", fontWeight: "500" }],
+                        "headline-md": ["20px", { lineHeight: "1.4", letterSpacing: "-0.01em", fontWeight: "600" }],
+                        "headline-lg": ["32px", { lineHeight: "1.2", letterSpacing: "-0.02em", fontWeight: "700" }],
+                        "label-caps": ["12px", { lineHeight: "1.2", letterSpacing: "0.1em", fontWeight: "700" }],
+                        "body-lg": ["16px", { lineHeight: "1.6", fontWeight: "400" }],
+                        "body-sm": ["14px", { lineHeight: "1.5", fontWeight: "400" }],
+                        "display-lg": ["48px", { lineHeight: "1.1", letterSpacing: "-0.03em", fontWeight: "700" }]
+                    }
+                }
+            }
+        };
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .material-symbols-outlined.fill {
+            font-variation-settings: 'FILL' 1;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body-sm min-h-screen flex antialiased">
+<!-- SideNavBar -->
+<nav class="hidden md:flex flex-col h-full py-stack-md px-stack-md fixed left-0 top-0 w-[240px] border-r border-surface-variant z-50 bg-primary">
+<div class="mb-stack-lg"><div class="flex items-center"><span class="font-headline-md text-headline-md font-bold border-l-2 border-primary-fixed pl-2 text-on-primary">SELLER COPILOT</span></div></div>
+<ul class="flex flex-col gap-2 flex-grow">
+<li class="">
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg font-medium hover:bg-surface-container hover:text-tertiary transition-colors duration-200 text-on-primary" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="">Overview</span>
+</a>
+</li>
+<li class="">
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg font-medium hover:bg-surface-container hover:text-tertiary transition-colors duration-200 text-on-primary" href="#">
+<span class="material-symbols-outlined">analytics</span>
+<span class="">Customer Analysis</span>
+</a>
+</li>
+<li class="">
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg font-medium hover:bg-surface-container hover:text-tertiary transition-colors duration-200 text-on-primary" href="#">
+<span class="material-symbols-outlined">priority_high</span>
+<span class="">Issues &amp; Strengths</span>
+</a>
+</li>
+<li class="">
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg font-bold transition-colors duration-200 text-primary bg-surface-container-highest" href="#">
+<span class="material-symbols-outlined">trending_up</span>
+<span class="">Improvement</span>
+</a>
+</li>
+<li class="">
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg font-medium hover:bg-surface-container hover:text-tertiary transition-colors duration-200 text-on-primary" href="#">
+<span class="material-symbols-outlined">fact_check</span>
+<span class="">Evidence</span>
+</a>
+</li>
+<li class="">
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg font-medium hover:bg-surface-container hover:text-tertiary transition-colors duration-200 text-on-primary" href="#">
+<span class="material-symbols-outlined">smart_toy</span>
+<span class="">AI Chat</span>
+</a>
+</li>
+<li class="">
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg font-medium hover:bg-surface-container hover:text-tertiary transition-colors duration-200 text-on-primary" href="#">
+<span class="material-symbols-outlined">description</span>
+<span class="">Report</span>
+</a>
+</li>
+</ul>
+<button class="bg-surface-variant text-on-surface font-bold rounded-lg py-3 px-4 mb-stack-md w-full text-left font-label-caps text-label-caps hover:bg-surface-container transition-colors">Current Product Analysis</button><div class="mt-auto pt-stack-md border-t border-surface-variant">
+<ul class="flex flex-col gap-2">
+<li class="">
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg font-medium hover:bg-surface-container hover:text-tertiary transition-colors duration-200 text-on-primary" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="">Settings</span>
+</a>
+</li>
+<li class="">
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg font-medium hover:bg-surface-container hover:text-tertiary transition-colors duration-200 text-on-primary" href="#">
+<span class="material-symbols-outlined">help</span>
+<span class="">Support</span>
+</a>
+</li>
+</ul>
+</div>
+</nav>
+<!-- TopAppBar (Mobile & Web) -->
+<header class="flex justify-between items-center px-margin-desktop h-16 bg-surface border-b border-surface-variant fixed top-0 right-0 z-40 md:flex hidden w-[calc(100%-240px)] left-[240px]">
+<div class="flex items-center gap-6">
+<nav class="hidden md:flex gap-6">
+<a class="hover:text-tertiary transition-colors font-label-caps text-label-caps uppercase h-16 flex items-center text-primary" href="#">Dashboard</a>
+<a class="hover:text-tertiary transition-colors font-label-caps text-label-caps uppercase h-16 flex items-center text-primary" href="#">Analytics</a>
+<a class="text-primary-fixed border-b-2 border-primary-fixed hover:text-tertiary transition-colors font-label-caps text-label-caps uppercase h-16 flex items-center text-primary" href="#">Insights</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 text-on-surface-variant hover:text-tertiary transition-colors">
+<span class="material-symbols-outlined">refresh</span>
+</button>
+<button class="bg-surface border border-border-subtle text-text-primary px-4 py-2 rounded-lg font-label-caps text-label-caps hover:bg-surface-container transition-colors">
+                Export Report
+            </button>
+<button class="bg-secondary-container text-primary px-4 py-2 rounded-lg font-label-caps text-label-caps font-bold hover:bg-secondary-fixed transition-colors">
+                AI Chat
+            </button>
+<div class="w-8 h-8 rounded-full bg-surface-variant overflow-hidden border border-border-subtle">
+<img alt="User Workspace Profile" class="w-full h-full object-cover" data-alt="A sophisticated, minimalist profile portrait of a fashion tech professional in a high-key lighting environment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCUATgVM7UUYRxXvbNeS9cKQY94Y2ycaUSqhGpxrlp5-QI6Math1v0EAuOFD-moQxnJdsdcRD_oC8naXKCMIth59I4YdsslgYc3elad4_ZH9xslJk896MH6X_jxnTdDjvy_zJExI1YkPfer2XOP32-2Xyi9xeOldj9dTZ9aq9K6uy7D7n3cy3jRvTgpkqbCwxVEC12xgut8r_NP8xOX2PM7JQC1IkvD6dDofCL2_-WU2CbTy-fL2q1f">
+</div>
+</div>
+</header>
+<!-- Main Content -->
+<main class="flex-1 ml-0 md:ml-[240px] pt-16 mt-stack-md px-margin-mobile md:px-margin-desktop pb-stack-xl max-w-[1440px] mx-auto w-full">
+<!-- Page Header -->
+<div class="mb-stack-lg">
+<h1 class="font-headline-lg text-headline-lg md:font-display-lg md:text-display-lg font-bold text-text-primary mb-2">Improvement Priority</h1>
+<p class="font-body-lg text-body-lg text-text-secondary max-w-2xl">리뷰 데이터를 기반으로 먼저 검토해야 할 상품 개선 항목을 제안합니다.</p>
+</div>
+<!-- Priority #01 Bento Box -->
+<section class="mb-stack-xl">
+<div class="bg-surface border border-border-subtle rounded-xl p-stack-md md:p-stack-lg shadow-sm">
+<!-- Header -->
+<div class="flex flex-col lg:flex-row justify-between items-start lg:items-center mb-stack-md border-b border-border-subtle pb-stack-sm gap-4">
+<div>
+<div class="flex items-center gap-3 mb-2">
+<span class="font-label-caps text-label-caps bg-primary text-on-primary px-2 py-1 rounded whitespace-nowrap">PRIORITY #01</span>
+<span class="font-label-caps text-label-caps text-on-tertiary-container bg-error-container px-2 py-1 rounded whitespace-nowrap">High Priority</span>
+</div>
+<h2 class="font-headline-lg text-headline-lg font-bold text-text-primary">S/M 사이즈 소매·총장 스펙</h2>
+</div>
+<div class="flex gap-6 mt-4 lg:mt-0 text-right shrink-0">
+<div>
+<p class="font-label-caps text-label-caps text-text-secondary">REVIEWS</p>
+<p class="font-headline-md text-headline-md font-bold text-text-primary">31</p>
+</div>
+<div>
+<p class="font-label-caps text-label-caps text-text-secondary whitespace-nowrap">Negative Ratio</p>
+<p class="font-headline-md text-headline-md font-bold text-on-tertiary-container">68%</p>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+<!-- Left Column: Why This Matters -->
+<div class="lg:col-span-5 flex flex-col gap-stack-sm">
+<h3 class="font-label-caps text-label-caps text-text-secondary tracking-widest uppercase">Why This Is Priority #1</h3>
+<div class="bg-surface-bright border border-border-subtle p-4 rounded-lg">
+<div class="flex justify-between items-center mb-2">
+<span class="font-body-sm text-body-sm font-medium">Mention Frequency</span>
+<span class="font-mono-data text-mono-data">High</span>
+</div>
+<div class="w-full bg-surface-variant h-2 rounded-full overflow-hidden">
+<div class="bg-primary h-full w-[85%]"></div>
+</div>
+</div>
+<div class="bg-surface-bright border border-border-subtle p-4 rounded-lg">
+<div class="flex justify-between items-center mb-2">
+<span class="font-body-sm text-body-sm font-medium">Negative Ratio</span>
+<span class="font-mono-data text-mono-data text-on-tertiary-container">68%</span>
+</div>
+<div class="w-full bg-surface-variant h-2 rounded-full overflow-hidden">
+<div class="bg-on-tertiary-container h-full w-[68%]"></div>
+</div>
+</div>
+<div class="bg-surface-bright border border-border-subtle p-4 rounded-lg">
+<div class="flex justify-between items-center">
+<span class="font-body-sm text-body-sm font-medium">Affected Customer Size</span>
+<span class="font-mono-data text-mono-data">31 Reviews</span>
+</div>
+</div>
+<div class="bg-surface-bright border border-border-subtle p-4 rounded-lg">
+<div class="flex justify-between items-center">
+<span class="font-body-sm text-body-sm font-medium">Recent Mentions</span>
+<span class="font-mono-data text-mono-data flex items-center gap-1 text-secondary"><span class="material-symbols-outlined text-sm">trending_up</span> Increasing</span>
+</div>
+</div>
+<div class="bg-surface-bright border border-border-subtle p-4 rounded-lg">
+<div class="flex justify-between items-center">
+<span class="font-body-sm text-body-sm font-medium">Helpful Votes</span>
+<span class="font-mono-data text-mono-data">86</span>
+</div>
+</div>
+</div>
+<!-- Right Column: Recommended Action -->
+<div class="lg:col-span-7 bg-accent-soft rounded-lg p-stack-md flex flex-col justify-center border border-[#d2f5c1]">
+<h3 class="font-label-caps text-label-caps text-secondary mb-4 tracking-widest">Recommended Action</h3>
+<p class="font-headline-md text-headline-md md:font-headline-lg md:text-headline-lg font-bold text-text-primary leading-tight mb-stack-md">
+                            다음 생산 시 S/M 사이즈의 소매 및 총장 스펙 검토를 권장합니다.
+                        </p>
+<div class="grid grid-cols-2 gap-4">
+<div class="bg-surface p-3 rounded border border-border-subtle">
+<span class="font-label-caps text-label-caps text-text-secondary block mb-1">PRODUCT</span>
+<span class="font-body-sm text-body-sm font-medium">Adjust pattern grading for S/M lengths.</span>
+</div>
+<div class="bg-surface p-3 rounded border border-border-subtle">
+<span class="font-label-caps text-label-caps text-text-secondary block mb-1">SIZE GUIDE</span>
+<span class="font-body-sm text-body-sm font-medium">Update exact measurements on PDP.</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Divider -->
+<hr class="border-border-subtle my-stack-lg">
+<!-- Priority #02 Minimal -->
+<section class="mb-stack-lg">
+<div class="bg-surface border border-border-subtle rounded-xl p-stack-md shadow-sm hover:border-text-primary transition-colors cursor-pointer">
+<div class="flex flex-col md:flex-row justify-between items-start md:items-center">
+<div class="flex items-center gap-4 mb-4 md:mb-0">
+<span class="font-label-caps text-label-caps bg-surface-variant text-text-primary px-2 py-1 rounded">PRIORITY #02</span>
+<h2 class="font-headline-md text-headline-md font-bold text-text-primary">단추 부자재 내구성 이슈</h2>
+</div>
+<div class="flex gap-4">
+<div class="text-right">
+<p class="font-label-caps text-label-caps text-text-secondary">REVIEWS</p>
+<p class="font-mono-data text-mono-data font-bold">18</p>
+</div>
+<div class="text-right">
+<p class="font-label-caps text-label-caps text-text-secondary whitespace-nowrap">Negative Ratio</p>
+<p class="font-mono-data text-mono-data font-bold text-on-tertiary-container">45%</p>
+</div>
+<button class="ml-4 text-text-secondary hover:text-primary">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+</section>
+<!-- Seller Action Plan -->
+<section class="mt-stack-xl">
+<h2 class="font-headline-md text-headline-md font-bold text-text-primary mb-stack-md">Seller Action Plan Summary</h2>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter">
+<div class="bg-surface border border-border-subtle p-6 rounded-lg">
+<span class="font-label-caps text-label-caps text-text-secondary tracking-widest block mb-2">PRODUCT</span>
+<p class="font-body-md text-body-md font-medium">S/M 사이즈의 소매 및 총장 스펙 검토</p>
+</div>
+<div class="bg-surface border border-border-subtle p-6 rounded-lg">
+<span class="font-label-caps text-label-caps text-text-secondary tracking-widest block mb-2">SIZE GUIDE</span>
+<p class="font-body-md text-body-md font-medium">160cm 이하 고객을 위한 체형별 착용 정보 추가</p>
+</div>
+<div class="bg-surface border border-border-subtle p-6 rounded-lg">
+<span class="font-label-caps text-label-caps text-text-secondary tracking-widest block mb-2">PRODUCT PAGE</span>
+<p class="font-body-md text-body-md font-medium">WHITE 옵션의 비침 정보와 실측 사이즈 안내 강화</p>
+</div>
+<div class="bg-surface border border-border-subtle p-6 rounded-lg">
+<span class="font-label-caps text-label-caps text-text-secondary tracking-widest block mb-2">QC</span>
+<p class="font-body-md text-body-md font-medium">세탁 후 수축 및 원단 구김 상태 점검</p>
+</div>
+<div class="bg-surface border border-border-subtle p-6 rounded-lg">
+<span class="font-label-caps text-label-caps text-text-secondary tracking-widest block mb-2">MARKETING</span>
+<p class="font-body-md text-body-md font-medium">디자인, 색감, 소재 강점을 마케팅 메시지에 활용</p>
+</div>
+</div>
+</section>
+</main>
+
+
+</body></html>

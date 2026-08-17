@@ -1,0 +1,6 @@
+playwright
+playwright-stealth
+python-dotenv
+openai>=2.30,<3
+pydantic>=2,<3
+supabase

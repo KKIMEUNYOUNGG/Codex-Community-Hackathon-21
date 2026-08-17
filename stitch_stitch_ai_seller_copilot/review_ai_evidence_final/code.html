@@ -1,0 +1,363 @@
+<!DOCTYPE html><html lang="en" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>SELLER COPILOT - Evidence Viewer</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "outline-variant": "#c4c7c7",
+                      "border-subtle": "#E8E8E5",
+                      "surface-variant": "#e2e3e1",
+                      "tertiary-container": "#410005",
+                      "on-background": "#1a1c1b",
+                      "error": "#ba1a1a",
+                      "on-primary-container": "#858383",
+                      "surface-tint": "#5f5e5e",
+                      "on-primary-fixed-variant": "#474646",
+                      "surface-dim": "#dadad8",
+                      "on-tertiary-container": "#e94c4d",
+                      "on-secondary-container": "#007508",
+                      "on-tertiary": "#ffffff",
+                      "surface": "#FFFFFF",
+                      "surface-container-lowest": "#ffffff",
+                      "inverse-primary": "#c9c6c5",
+                      "on-secondary-fixed": "#002201",
+                      "surface-container": "#eeeeec",
+                      "inverse-surface": "#2f3130",
+                      "error-container": "#ffdad6",
+                      "text-primary": "#111111",
+                      "tertiary-fixed": "#ffdad7",
+                      "on-primary-fixed": "#1c1b1b",
+                      "surface-container-low": "#f4f4f2",
+                      "secondary-container": "#7bfe6a",
+                      "primary-fixed-dim": "#c9c6c5",
+                      "secondary-fixed-dim": "#5ee151",
+                      "tertiary": "#000000",
+                      "on-surface-variant": "#444748",
+                      "secondary": "#006e07",
+                      "tertiary-fixed-dim": "#ffb3af",
+                      "inverse-on-surface": "#f1f1ef",
+                      "background": "#f9f9f7",
+                      "on-surface": "#1a1c1b",
+                      "primary-fixed": "#e5e2e1",
+                      "on-secondary": "#ffffff",
+                      "on-tertiary-fixed": "#410005",
+                      "on-secondary-fixed-variant": "#005304",
+                      "on-primary": "#ffffff",
+                      "accent-soft": "#F1FFE8",
+                      "surface-bright": "#f9f9f7",
+                      "on-error-container": "#93000a",
+                      "negative-soft": "#FFF3F3",
+                      "on-error": "#ffffff",
+                      "on-tertiary-fixed-variant": "#920418",
+                      "surface-container-high": "#e8e8e6",
+                      "outline": "#747878",
+                      "secondary-fixed": "#7bfe6a",
+                      "text-secondary": "#6B6B6B",
+                      "primary": "#000000",
+                      "surface-container-highest": "#e2e3e1",
+                      "primary-container": "#1c1b1b"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "gutter": "24px",
+                      "margin-desktop": "40px",
+                      "margin-mobile": "20px",
+                      "stack-sm": "12px",
+                      "stack-xs": "4px",
+                      "stack-lg": "48px",
+                      "stack-xl": "80px",
+                      "stack-md": "24px"
+              },
+              "fontFamily": {
+                      "headline-lg-mobile": ["Inter"],
+                      "mono-data": ["Inter"],
+                      "headline-md": ["Inter"],
+                      "headline-lg": ["Inter"],
+                      "label-caps": ["Inter"],
+                      "body-lg": ["Inter"],
+                      "body-sm": ["Inter"],
+                      "display-lg": ["Inter"]
+              },
+              "fontSize": {
+                      "headline-lg-mobile": ["24px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "mono-data": ["14px", {"lineHeight": "1.4", "letterSpacing": "-0.01em", "fontWeight": "500"}],
+                      "headline-md": ["20px", {"lineHeight": "1.4", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                      "headline-lg": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "label-caps": ["12px", {"lineHeight": "1.2", "letterSpacing": "0.1em", "fontWeight": "700"}],
+                      "body-lg": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                      "body-sm": ["14px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                      "display-lg": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.03em", "fontWeight": "700"}]
+              }
+            }
+          }
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-background min-h-screen flex text-text-primary">
+<!-- SideNavBar (Shared Component) -->
+<nav class="hidden md:flex bg-primary fixed left-0 top-0 h-full w-[240px] border-r border-surface-variant flex-col py-stack-md px-stack-md z-20">
+<div class="mb-stack-lg flex items-center"><span class="font-headline-md text-headline-md font-bold text-on-primary border-l-2 border-primary-fixed pl-2">SELLER COPILOT</span></div>
+<div class="flex-1 flex flex-col gap-1 overflow-y-auto"><a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-primary-fixed font-medium hover:bg-white/10 hover:text-white transition-colors duration-200 scale-95 active:scale-90 font-body-sm text-body-sm" href="#"><span class="material-symbols-outlined">dashboard</span>Overview</a><a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-primary-fixed font-medium hover:bg-white/10 hover:text-white transition-colors duration-200 scale-95 active:scale-90 font-body-sm text-body-sm" href="#"><span class="material-symbols-outlined">analytics</span>Customer Analysis</a><a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-primary-fixed font-medium hover:bg-white/10 hover:text-white transition-colors duration-200 scale-95 active:scale-90 font-body-sm text-body-sm" href="#"><span class="material-symbols-outlined">priority_high</span>Issues &amp; Strengths</a><a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-primary-fixed font-medium hover:bg-white/10 hover:text-white transition-colors duration-200 scale-95 active:scale-90 font-body-sm text-body-sm" href="#"><span class="material-symbols-outlined">trending_up</span>Improvement</a><a class="flex items-center gap-3 px-3 py-2.5 text-primary font-bold bg-white rounded-lg scale-95 active:scale-90 transition-transform font-body-sm text-body-sm" href="#"><span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">fact_check</span>Evidence</a><a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-primary-fixed font-medium hover:bg-white/10 hover:text-white transition-colors duration-200 scale-95 active:scale-90 font-body-sm text-body-sm" href="#"><span class="material-symbols-outlined">smart_toy</span>AI Chat</a><a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-primary-fixed font-medium hover:bg-white/10 hover:text-white transition-colors duration-200 scale-95 active:scale-90 font-body-sm text-body-sm" href="#"><span class="material-symbols-outlined">description</span>Report</a></div>
+<div class="mt-auto pt-stack-md border-t border-surface-variant flex flex-col gap-1">
+<button class="w-full bg-white text-primary font-body-sm text-body-sm py-2 px-3 rounded-lg mb-4 hover:opacity-90 transition-opacity text-left flex flex-col">
+<span class="text-[10px] font-label-caps text-text-secondary mb-0.5">CURRENT PRODUCT</span>
+<span class="font-bold leading-tight">MUSINSA STANDARD<br>Women's Oversized Shirt</span>
+</button>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-primary-fixed font-medium hover:bg-white/10 hover:text-white transition-colors duration-200 font-body-sm text-body-sm" href="#"><span class="material-symbols-outlined">settings</span>Settings</a><a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-primary-fixed font-medium hover:bg-white/10 hover:text-white transition-colors duration-200 font-body-sm text-body-sm" href="#"><span class="material-symbols-outlined">help</span>Support</a></div>
+</nav>
+<!-- Main Content Wrapper -->
+<div class="flex-1 flex flex-col md:ml-[240px] min-h-screen">
+<!-- TopAppBar (Shared Component) -->
+<header class="hidden md:flex bg-surface docked full-width top-0 border-b border-surface-variant flex justify-between items-center px-margin-desktop h-16 z-10 sticky md:ml-[240px]" style="width: calc(100% - 240px);">
+<div class="flex items-center gap-8">
+</div>
+<div class="flex items-center gap-4">
+<button class="flex items-center gap-2 px-4 py-2 bg-secondary-container text-primary font-label-caps text-label-caps rounded-lg hover:opacity-90 transition-opacity">
+<span class="material-symbols-outlined text-[18px]">smart_toy</span>
+                    AI Chat
+                </button>
+<button class="flex items-center gap-2 px-4 py-2 border border-border-subtle text-primary font-label-caps text-label-caps rounded-lg hover:border-primary transition-colors bg-surface">
+                    Export Report
+                </button>
+<button class="w-10 h-10 flex items-center justify-center text-on-surface-variant hover:text-tertiary hover:bg-surface-container rounded-full transition-colors">
+<span class="material-symbols-outlined">refresh</span>
+</button>
+<div class="w-8 h-8 rounded-full bg-surface-container-high border border-border-subtle overflow-hidden ml-2 cursor-pointer">
+<!-- Placeholder for Profile Image -->
+<span class="material-symbols-outlined w-full h-full flex items-center justify-center text-outline">person</span>
+</div>
+</div>
+</header>
+<!-- Page Content: 2-Column Layout -->
+<main class="flex-1 flex flex-col lg:flex-row overflow-hidden relative">
+<!-- Left Panel: Analysis Topics -->
+<aside class="w-full lg:w-[320px] lg:border-r border-border-subtle bg-surface flex flex-col h-full lg:h-[calc(100vh-64px)] overflow-y-auto lg:sticky top-16">
+<div class="p-stack-md border-b border-border-subtle sticky top-0 bg-surface z-10">
+<h2 class="font-label-caps text-label-caps text-text-secondary tracking-widest">ANALYSIS TOPICS</h2>
+</div>
+<ul class="flex flex-col py-2">
+<li class="">
+<a class="flex justify-between items-center px-stack-md py-3 hover:bg-surface-container transition-colors group" href="#">
+<span class="font-body-sm text-body-sm text-text-secondary group-hover:text-primary transition-colors">All Issues</span>
+<span class="font-mono-data text-mono-data text-outline group-hover:text-text-secondary">142</span>
+</a>
+</li>
+<!-- Active Topic -->
+<li class="">
+<a class="flex justify-between items-center px-stack-md py-3 bg-surface-container-highest border-l-2 border-primary-fixed" href="#">
+<span class="font-body-sm text-body-sm font-bold text-primary">Sleeve Length</span>
+<span class="font-mono-data text-mono-data font-bold text-primary">31</span>
+</a>
+</li>
+<li class="">
+<a class="flex justify-between items-center px-stack-md py-3 hover:bg-surface-container transition-colors group" href="#">
+<span class="font-body-sm text-body-sm text-text-secondary group-hover:text-primary transition-colors">WHITE Transparency</span>
+<span class="font-mono-data text-mono-data text-outline group-hover:text-text-secondary">21</span>
+</a>
+</li>
+<li class="">
+<a class="flex justify-between items-center px-stack-md py-3 hover:bg-surface-container transition-colors group" href="#">
+<span class="font-body-sm text-body-sm text-text-secondary group-hover:text-primary transition-colors">Shoulder Fit</span>
+<span class="font-mono-data text-mono-data text-outline group-hover:text-text-secondary">18</span>
+</a>
+</li>
+<li class="">
+<a class="flex justify-between items-center px-stack-md py-3 hover:bg-surface-container transition-colors group" href="#">
+<span class="font-body-sm text-body-sm text-text-secondary group-hover:text-primary transition-colors">Fabric Texture</span>
+<span class="font-mono-data text-mono-data text-outline group-hover:text-text-secondary">15</span>
+</a>
+</li>
+<li class="">
+<a class="flex justify-between items-center px-stack-md py-3 hover:bg-surface-container transition-colors group" href="#">
+<span class="font-body-sm text-body-sm text-text-secondary group-hover:text-primary transition-colors">Zipper Quality</span>
+<span class="font-mono-data text-mono-data text-outline group-hover:text-text-secondary">9</span>
+</a>
+</li>
+</ul>
+</aside>
+<!-- Right Panel: Evidence Reviews -->
+<section class="flex-1 flex flex-col bg-background h-full lg:h-[calc(100vh-64px)] overflow-y-auto">
+<div class="max-w-[800px] w-full mx-auto px-margin-mobile md:px-margin-desktop py-stack-lg">
+<!-- Header -->
+<div class="mb-stack-lg">
+<div class="flex items-end gap-3 mb-4">
+<h1 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-primary">Sleeve Length</h1>
+<span class="font-body-lg text-body-lg text-text-secondary mb-1">31 Evidence Reviews</span>
+</div>
+<!-- AI Finding Summary -->
+<div class="bg-accent-soft border border-secondary-fixed-dim rounded-xl p-4 flex gap-4 items-start shadow-sm">
+<div class="bg-surface rounded-full p-2 flex items-center justify-center shrink-0 border border-secondary-fixed-dim shadow-sm">
+<span class="material-symbols-outlined text-secondary-fixed-dim" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+</div>
+<div class="pt-1">
+<h3 class="font-label-caps text-label-caps text-secondary font-bold mb-1">AI FINDING</h3>
+<p class="font-body-sm text-body-sm text-on-secondary-fixed">
+                                    160–164cm M 구매자에서 소매 길이 관련 불만이 집중됩니다. (높은 Negative Ratio)
+                                </p>
+</div>
+</div>
+</div>
+<!-- Filters -->
+<div class="flex flex-wrap items-center gap-3 mb-stack-md pb-stack-sm border-b border-border-subtle sticky top-0 bg-background/95 backdrop-blur-sm z-10 pt-2">
+<span class="material-symbols-outlined text-outline">filter_list</span>
+<div class="relative group cursor-pointer">
+<div class="px-4 py-1.5 bg-surface border border-border-subtle rounded-full flex items-center gap-2 hover:border-primary transition-colors">
+<span class="font-label-caps text-label-caps text-primary">Sentiment: All</span>
+<span class="material-symbols-outlined text-[16px] text-outline">expand_more</span>
+</div>
+</div>
+<div class="relative group cursor-pointer">
+<div class="px-4 py-1.5 bg-surface border border-border-subtle rounded-full flex items-center gap-2 hover:border-primary transition-colors">
+<span class="font-label-caps text-label-caps text-primary">Size: All</span>
+<span class="material-symbols-outlined text-[16px] text-outline">expand_more</span>
+</div>
+</div>
+<div class="relative group cursor-pointer">
+<div class="px-4 py-1.5 bg-surface border border-border-subtle rounded-full flex items-center gap-2 hover:border-primary transition-colors">
+<span class="font-label-caps text-label-caps text-primary">Height: 160-164cm</span>
+<span class="material-symbols-outlined text-[16px] text-outline">expand_more</span>
+</div>
+<!-- Active filter indicator -->
+<div class="absolute -top-1 -right-1 w-2.5 h-2.5 bg-secondary-container rounded-full border border-surface"></div>
+</div>
+<div class="relative group cursor-pointer ml-auto">
+<div class="px-4 py-1.5 bg-surface border border-border-subtle rounded-full flex items-center gap-2 hover:border-primary transition-colors">
+<span class="material-symbols-outlined text-[16px] text-outline">tune</span>
+<span class="font-label-caps text-label-caps text-primary">More Filters</span>
+</div>
+<!-- Dropdown panel for more filters -->
+<div class="absolute right-0 top-full mt-2 w-48 bg-surface border border-border-subtle rounded-lg shadow-lg hidden group-hover:flex flex-col py-2 z-20">
+<div class="px-4 py-2 hover:bg-surface-container text-body-sm font-body-sm cursor-pointer text-primary">Gender</div>
+<div class="px-4 py-2 hover:bg-surface-container text-body-sm font-body-sm cursor-pointer text-primary">Weight</div>
+<div class="px-4 py-2 hover:bg-surface-container text-body-sm font-body-sm cursor-pointer text-primary">Color</div>
+<div class="border-t border-border-subtle my-1"></div>
+<div class="px-4 py-2 hover:bg-surface-container text-body-sm font-body-sm cursor-pointer text-primary">Most Helpful</div>
+<div class="px-4 py-2 hover:bg-surface-container text-body-sm font-body-sm cursor-pointer text-primary">Recent</div>
+</div>
+</div>
+</div>
+<!-- Review Cards List -->
+<div class="flex flex-col gap-stack-sm">
+<!-- Card 1 -->
+<article class="bg-surface border border-border-subtle rounded-xl p-6 transition-colors hover:border-outline-variant group">
+<div class="flex justify-between items-start mb-4">
+<div class="flex gap-1 text-primary">
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[18px] text-outline-variant" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[18px] text-outline-variant" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[18px] text-outline-variant" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+<span class="font-mono-data text-mono-data text-outline">2023.10.24</span>
+</div>
+<div class="font-mono-data text-mono-data text-text-secondary mb-3 flex flex-wrap gap-2 items-center">
+<span class="bg-surface-container px-2 py-0.5 rounded text-xs">Female</span>
+<span class="text-border-subtle">|</span>
+<span class="">162cm</span>
+<span class="text-border-subtle">|</span>
+<span class="">48kg</span>
+<span class="text-border-subtle">|</span>
+<span class="font-bold text-primary">M</span>
+<span class="text-border-subtle">|</span>
+<span class="">WHITE</span>
+</div>
+<p class="font-body-lg text-body-lg text-primary leading-relaxed mb-4">
+                                옷 자체 핏이나 색감은 화면과 동일하고 예쁩니다. 그런데 <span class="bg-secondary-container/20 border-b-2 border-secondary-fixed/50 pb-0.5 px-0.5 rounded-sm transition-all group-hover:bg-secondary-container/40">팔 부분이 생각보다 많이 길어요</span>. 손가락을 다 덮을 정도라서 일상생활할 때 조금 불편합니다. 수선해서 입어야 할 것 같아요.
+                            </p>
+<div class="flex gap-3">
+<div class="w-20 h-20 rounded-lg overflow-hidden border border-border-subtle cursor-pointer hover:opacity-90 transition-opacity">
+<img class="w-full h-full object-cover" data-alt="A person wearing a white oversized shirt" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAQK_uYcyAtfrRI-QghYqXT_izZx0S5J4819Bf9sjN2J63s0pBCrJzrBm2EVocNrjdcXR78YVT9Zt6PmKxSpuy87SClpMWy9TQevaoIh-RHMy391VfTi8IS_ey0uY9kSgzfOuNu7I0e13b9Tha4uL2Py6cjEzibd9CqWYIi6XrNXh8wUVT-2xqh8sPUx-UTsY8Gia2u7RjJvjW1C4NvpxIH_R-vZz_cZJINuoWEWPXCZIlqAQ9OP0e9">
+</div>
+<div class="w-20 h-20 rounded-lg overflow-hidden border border-border-subtle cursor-pointer hover:opacity-90 transition-opacity">
+<img class="w-full h-full object-cover" data-alt="Close up of a white oversized shirt sleeve" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAoFRRhz4H_-9W8TK6wLTRr07S1-ODoneZJJ7XAHNbgZDGC0LwecZG8cA2RTSAxOc6NNbG_PbEcOUShoVnGp9Cz27qSmz1PZLGy9OHFD1VXAcuP4_CTfIgOHfubC_bnzjb8S0n-EpHJT7CSWgUsnjqYm7FWaFLJ5LU2surT3jeM7oU7l1wh3_qkbbTECygEatnYevGPE9OOYHSzmOHnhg8w9X1WOyJhMLywEG8Edhkgz2dsjmqEfZcC">
+</div>
+</div>
+</article>
+<!-- Card 2 -->
+<article class="bg-surface border border-border-subtle rounded-xl p-6 transition-colors hover:border-outline-variant group">
+<div class="flex justify-between items-start mb-4">
+<div class="flex gap-1 text-primary">
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[18px] text-outline-variant" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[18px] text-outline-variant" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+<span class="font-mono-data text-mono-data text-outline">2023.10.22</span>
+</div>
+<div class="font-mono-data text-mono-data text-text-secondary mb-3 flex flex-wrap gap-2 items-center">
+<span class="bg-surface-container px-2 py-0.5 rounded text-xs">Female</span>
+<span class="text-border-subtle">|</span>
+<span class="">160cm</span>
+<span class="text-border-subtle">|</span>
+<span class="">52kg</span>
+<span class="text-border-subtle">|</span>
+<span class="font-bold text-primary">M</span>
+<span class="text-border-subtle">|</span>
+<span class="">WHITE</span>
+</div>
+<p class="font-body-lg text-body-lg text-primary leading-relaxed">
+                                기장감이나 폼은 딱 원하던 오버핏이라 마음에 듭니다. 다만 <span class="bg-secondary-container/20 border-b-2 border-secondary-fixed/50 pb-0.5 px-0.5 rounded-sm transition-all group-hover:bg-secondary-container/40">소매가 너무 길어서 접어 입어야 하네요</span>. 키가 작으신 분들은 소매 기장 꼭 확인하고 구매하시는 게 좋을 듯합니다.
+                            </p>
+</article>
+<!-- Card 3 -->
+<article class="bg-surface border border-border-subtle rounded-xl p-6 transition-colors hover:border-outline-variant group">
+<div class="flex justify-between items-start mb-4">
+<div class="flex gap-1 text-primary">
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[18px] text-outline-variant" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[18px] text-outline-variant" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[18px] text-outline-variant" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+<span class="font-mono-data text-mono-data text-outline">2023.10.19</span>
+</div>
+<div class="font-mono-data text-mono-data text-text-secondary mb-3 flex flex-wrap gap-2 items-center">
+<span class="bg-surface-container px-2 py-0.5 rounded text-xs">Female</span>
+<span class="text-border-subtle">|</span>
+<span class="">164cm</span>
+<span class="text-border-subtle">|</span>
+<span class="">-</span>
+<span class="text-border-subtle">|</span>
+<span class="font-bold text-primary">M</span>
+<span class="text-border-subtle">|</span>
+<span class="">WHITE</span>
+</div>
+<p class="font-body-lg text-body-lg text-primary leading-relaxed mb-4">
+                                디자인은 고급스럽고 좋아요. 근데 <span class="bg-secondary-container/20 border-b-2 border-secondary-fixed/50 pb-0.5 px-0.5 rounded-sm transition-all group-hover:bg-secondary-container/40">소매 기장이 제 팔에 비해 너무 길게 나왔어요</span>. 밥 먹을 때나 손 씻을 때 계속 걷어 올려야 해서 은근 신경 쓰입니다. S로 교환할까 고민하다가 그냥 입어요.
+                            </p>
+<div class="flex gap-3">
+<div class="w-20 h-20 rounded-lg overflow-hidden border border-border-subtle cursor-pointer hover:opacity-90 transition-opacity flex items-center justify-center bg-surface-container">
+<img class="w-full h-full object-cover" data-alt="Detail of a white shirt sleeve" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCHbh5udRUhho3tW4KKC07xy1dbu_-Dlrh-uy6g5gzEiSRg5o9HHtURo6hOmGAuyi-BRfh9RDBtfKSVrYtTJoEIl5fkGqKeruEFTjlPy0BK8znjHPQgSSbrt1vssV2l66j0IS4C8RLqu2W3Q3sBEu8tHI8tBxfzy6T7nKTHN5--dR1bdzJkGUXT0vUpQqcK3-yxJ1aOGQ9o22CJpufyybH7PEmIi2Vq4Q9PlkhcyT4gXvKRx3Ldy-00">
+</div>
+</div>
+</article>
+</div>
+<!-- Load More -->
+<div class="mt-stack-md flex justify-center pb-stack-xl">
+<button class="px-6 py-3 border border-border-subtle rounded-lg font-label-caps text-label-caps text-primary hover:bg-surface-container transition-colors">
+                            Load More Evidence
+                        </button>
+</div>
+</div>
+</section>
+</main>
+</div>
+
+
+</body></html>
